@@ -1,0 +1,115 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Montserrat", sans-serif;
+  }
+}
+
+.font-cormorant {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.font-montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Efecto de texto dorado elegante y suave */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #daa520 25%, #b8860b 50%, #cd853f 75%, #a0522d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Efecto de brillo sutil dorado */
+.glow-effect {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.2), 0 0 40px rgba(184, 134, 11, 0.15);
+}
+
+/* Colores dorados personalizados */
+.text-soft-gold {
+  color: #d4af37;
+}
+
+.text-warm-gold {
+  color: #daa520;
+}
+
+.text-bronze-gold {
+  color: #cd853f;
+}
+
+.bg-soft-gold {
+  background-color: #d4af37;
+}
+
+.border-soft-gold {
+  border-color: #d4af37;
+}
+
+.hover\:text-soft-gold:hover {
+  color: #d4af37;
+}
+
+.hover\:border-soft-gold:hover {
+  border-color: #d4af37;
+}
+
+.hover\:bg-soft-gold:hover {
+  background-color: #d4af37;
+}
