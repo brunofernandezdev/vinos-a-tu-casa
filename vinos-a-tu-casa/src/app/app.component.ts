@@ -587,36 +587,20 @@ export class AppComponent {
 
   contactInfo: any[] = [
     {
-      type: "WhatsApp",
+      type: "WhatsApp Valentina",
       icon: MessageCircle,
-      value: "+54 9 11 1234-5678",
-      link: "https://wa.me/5491112345678",
+      value: "+54 9 351 392-0512",
+      link: "https://wa.me/5493513920512",
       description: "Consultá disponibilidad y hacé tu pedido",
       isWhatsApp: true,
     },
     {
-      type: "WhatsApp Ventas",
+      type: "WhatsApp Julio",
       icon: MessageCircle,
-      value: "+54 9 11 8765-4321",
-      link: "https://wa.me/5491187654321",
+      value: "+54 9 351 380-2776",
+      link: "https://wa.me/5493513802776",
       description: "Asesoramiento personalizado",
       isWhatsApp: true,
-    },
-    {
-      type: "Email",
-      icon: Mail,
-      value: "ventas@vinoteca.com",
-      link: "mailto:ventas@vinoteca.com",
-      description: "Consultas y pedidos por email",
-      isWhatsApp: false,
-    },
-    {
-      type: "Teléfono",
-      icon: Phone,
-      value: "(011) 4567-8900",
-      link: "tel:+541145678900",
-      description: "Atención telefónica Lun-Vie 9-18hs",
-      isWhatsApp: false,
     },
   ]
 
