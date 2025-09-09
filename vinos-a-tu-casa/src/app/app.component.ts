@@ -447,6 +447,15 @@ export class AppComponent {
       image: "assets/trumpeter-malbec.webp",
     },
     {
+      title: "Luigi Bosca de Sangre",
+      varietal: "Blend",
+      region: "Mendoza, Argentina",
+      description: "Frutado, notas de ciruelas maduras, toques de chocolate y especias suaves",
+      price: "$96.000",
+      priceType: "Caja cerrada (Promo)",
+      image: "assets/luigi-bosca-sangre.webp",
+    },
+    {
       title: "Bedz Malbec Estate 2017",
       varietal: "Malbec",
       region: "Mendoza, Argentina",
