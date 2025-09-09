@@ -450,7 +450,7 @@ export class AppComponent {
       title: "Luigi Bosca de Sangre",
       varietal: "Blend",
       region: "Mendoza, Argentina",
-      description: "Frutado, notas de ciruelas maduras, toques de chocolate y especias suaves",
+      description: "Frutado, cuerpo medio, vibrante",
       price: "$96.000",
       priceType: "Caja cerrada (Promo)",
       image: "assets/luigi-bosca-sangre.webp",
