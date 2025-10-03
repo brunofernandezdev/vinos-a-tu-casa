@@ -216,10 +216,14 @@ interface ContactInfo {
                 <p class="text-gray-300 text-sm mb-4 font-light leading-relaxed font-montserrat">{{ vino.description }}</p>
 
                 <div class="mb-6">
-                  <div class="text-soft-gold font-bold text-xl sm:text-2xl font-cormorant">{{ vino.price }}</div>
-                  <div class="text-gray-400 text-xs font-montserrat">{{ vino.priceType }}</div>
-                  <div *ngIf="vino.alternativePrice" class="text-warm-gold text-sm font-medium mt-1 font-montserrat">
-                    {{ vino.alternativePrice }}
+                  <div class="text-xl sm:text-2xl font-cormorant">
+                    <ng-container *ngIf="vino.oldPrice; else normalPrice">
+                      <span class="text-gray-400 line-through mr-2">{{ vino.oldPrice }}</span>
+                      <span class="text-soft-gold font-bold">{{ vino.price }}</span>
+                    </ng-container>
+                    <ng-template #normalPrice>
+                      <span class="text-soft-gold font-bold">{{ vino.price }}</span>
+                    </ng-template>
                   </div>
                 </div>
 
@@ -442,7 +446,7 @@ export class AppComponent {
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Frutado, notas de ciruelas maduras, toques de chocolate y especias suaves",
-      price: "$44.000",
+      price: "$46.000",
       priceType: "Caja cerrada (Promo)",
       image: "assets/trumpeter-malbec.webp",
     },
@@ -480,7 +484,8 @@ export class AppComponent {
       varietal: "Cabernet Franc",
       region: "Mendoza, Argentina",
       description: "Aromas herbáceos, con notas de frutos rojos y especias suaves, taninos elegantes",
-      price: "$59.000",
+      oldPrice: "$75.000",        // precio tachado
+      price: "$69.000", 
       priceType: "Caja cerrada",
       alternativePrice: "$20.000 (2 unidades)",
       image: "assets/de-mono-rojo.webp",
