@@ -318,7 +318,7 @@ interface ContactInfo {
             >
               <div class="p-4 sm:p-6 pb-2">
                 <div class="flex gap-3 sm:gap-4">
-                  <div class="w-20 h-28 sm:w-24 sm:h-32 flex-shrink-0">
+                  <div class="w-28 h-36 sm:w-32 sm:h-40 flex-shrink-0">
                     <img
                       [src]="promo.image"
                       [alt]="promo.title"
