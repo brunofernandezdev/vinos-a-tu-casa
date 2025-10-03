@@ -646,6 +646,16 @@ export class AppComponent {
       priceType: "Por combinación de 2 unidades",
       image: "assets/lui-umile-malbec.jpg",
     },
+    {
+      title: "Promo",
+      varietal: "Combinación libre",
+      region: "Mendoza, Argentina",
+      description: "Arma tu caja x6 combinando como quieras (x2 o x3)",
+      wines: ["Mas Delirante - Blend de tintas", "Ojo de Agua - Cuvee", "Mara - Merlot / Cabernet Franc"],
+      price: "$99.000",
+      priceType: "Arma tu caja x6 combinando como quieras (x2 o x3)",
+      image: "assets/promo-especial.jpeg",
+    },
   ]
 
   
