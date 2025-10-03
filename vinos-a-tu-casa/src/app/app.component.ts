@@ -198,11 +198,11 @@ interface ContactInfo {
             >
               <div class="p-4 sm:p-6 pb-2">
                 <div class="flex gap-3 sm:gap-4">
-                  <div class="w-20 h-28 sm:w-24 sm:h-32 flex-shrink-0">
+                  <div class="w-40 h-52 sm:w-48 sm:h-60 flex-shrink-0">
                     <img
                       [src]="vino.image"
                       [alt]="vino.title"
-                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg"
+                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
                     />
                   </div>
                   <div class="flex-1 min-w-0">
@@ -260,11 +260,11 @@ interface ContactInfo {
             >
               <div class="p-4 sm:p-6 pb-2">
                 <div class="flex gap-3 sm:gap-4">
-                  <div class="w-20 h-28 sm:w-24 sm:h-32 flex-shrink-0">
+                  <div class="w-40 h-52 sm:w-48 sm:h-60 flex-shrink-0">
                     <img
                       [src]="espumante.image"
                       [alt]="espumante.title"
-                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg"
+                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
                     />
                   </div>
                   <div class="flex-1 min-w-0">
@@ -318,11 +318,11 @@ interface ContactInfo {
             >
               <div class="p-4 sm:p-6 pb-2">
                 <div class="flex gap-3 sm:gap-4">
-                  <div class="w-28 h-36 sm:w-32 sm:h-40 flex-shrink-0">
+                  <div class="w-40 h-52 sm:w-48 sm:h-60 flex-shrink-0">
                     <img
                       [src]="promo.image"
                       [alt]="promo.title"
-                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg"
+                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
                     />
                   </div>
                   <div class="flex-1 min-w-0">
