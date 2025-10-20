@@ -484,8 +484,8 @@ export class AppComponent {
       varietal: "Cabernet Franc",
       region: "Mendoza, Argentina",
       description: "Aromas herbáceos, con notas de frutos rojos y especias suaves, taninos elegantes",
-      oldPrice: "$75.000",        // precio tachado
-      price: "$69.000", 
+      // oldPrice: "$75.000",        // precio tachado
+      price: "$75.000", 
       priceType: "Caja cerrada",
       alternativePrice: "$20.000 (2 unidades)",
       image: "assets/de-mono-rojo.webp",
