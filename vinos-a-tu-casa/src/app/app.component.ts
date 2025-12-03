@@ -202,7 +202,7 @@ interface ContactInfo {
                     <img
                       [src]="vino.image"
                       [alt]="vino.title"
-                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
+                      class="w-full h-full object-contain rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
                     />
                   </div>
                   <div class="flex-1 min-w-0">
