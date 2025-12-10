@@ -560,7 +560,7 @@ export class AppComponent {
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Elegante, con notas de frutos rojos maduros y un toque de roble francés",
-      price: "$25.000",
+      price: "2 x $28.000",
       priceType: "Por combinación de 2 unidades",
       image: "assets/ul-malbec.jpg",
     },
