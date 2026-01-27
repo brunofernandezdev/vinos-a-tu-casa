@@ -492,7 +492,7 @@ export class AppComponent {
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Complejo, con notas de frutas negras maduras, un toque de vainilla y un final especiado",
-      price: "$66.000",
+      price: "55.000",
       priceType: "Caja cerrada",
       alternativePrice: "$18.000 (2 unidades)",
       image: "assets/bedz-malbec-reserva-2015.jpg",
