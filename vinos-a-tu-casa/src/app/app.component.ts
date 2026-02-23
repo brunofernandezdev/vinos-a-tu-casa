@@ -478,7 +478,7 @@ export class AppComponent {
       image: "assets/luigi-bosca-sangre.webp",
     },
     {
-      title: "Bedz Malbec Estate 2017",
+      title: "Bedz Malbec Estate 2022",
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Aromas de frutos rojos, toques de violetas, con un final suave y elegante",
@@ -488,7 +488,7 @@ export class AppComponent {
       image: "assets/bedz-estate-malbec.png",
     },
     {
-      title: "Bedz Malbec Reserva 2015",
+      title: "Bedz Malbec Reserva 2021",
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Complejo, con notas de frutas negras maduras, un toque de vainilla y un final especiado",
@@ -592,15 +592,15 @@ export class AppComponent {
       alternativePrice: "Combinables - 3 variedades: Malbec, Cabernet Franc y Cabernet Sauvignon",
       image: "assets/callejon-de-las-brujas.webp",
     },
-    {
-      title: "Temporada Malbec 2024",
-      varietal: "Malbec",
-      region: "Mendoza, Argentina",
-      description: "Malbec joven y vibrante, notas de frutos rojos frescos, taninos suaves y agradables, ideal para disfrutar ahora",
-      price: "$39.000",
-      priceType: "Caja cerrada",
-      image: "assets/Temporada-malbec-2024.png",
-    },
+    // {
+    //   title: "Temporada Malbec 2024",
+    //   varietal: "Malbec",
+    //   region: "Mendoza, Argentina",
+    //   description: "Malbec joven y vibrante, notas de frutos rojos frescos, taninos suaves y agradables, ideal para disfrutar ahora",
+    //   price: "$39.000",
+    //   priceType: "Caja cerrada",
+    //   image: "assets/Temporada-malbec-2024.png",
+    // },
     {
       title: "Filippo Figari Malbec 2020",
       varietal: "Malbec",
@@ -673,6 +673,15 @@ export class AppComponent {
       price: "$63.000",
       priceType: "Caja x 6 unidades",
       image: "assets/Ricardo-santos-malbec.jpg",
+    },
+    {
+      title: "Viamonte Icono Malbec 2020",
+      varietal: "Malbec",
+      region: "Luján de Cuyo, Mendoza",
+      description: "Color rojo violáceo intenso y destellos púrpura. Aromas complejos donde se destaca fruta roja bien madura como mermelada de ciruelas. Su crianza en roble francés por 24 meses y sus posteriores 12 meses en estiba le aportan notas de vainilla. Vino aterciopelado con un final extenso",
+      price: "$119.000",
+      priceType: "Caja cerrada",
+      image: "assets/Valmonte-winery-icono.jpg",
     },
   ]
 
