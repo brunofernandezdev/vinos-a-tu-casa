@@ -625,7 +625,7 @@ export class AppComponent {
       price: "$42.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Malbec: $42.000",
-      image: "assets\filippo-figari-2020.jpg",
+      image: "assets/filippo-figari-2020.jpg",
     },
     {
       title: "Mil Demonios Malbec",
