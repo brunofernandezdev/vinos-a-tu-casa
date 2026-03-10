@@ -227,6 +227,10 @@ interface ContactInfo {
                       <span class="text-soft-gold font-bold">{{ vino.price }}</span>
                     </ng-template>
                   </div>
+                  <div class="text-gray-400 text-xs font-montserrat">{{ vino.priceType }}</div>
+                  <div *ngIf="vino.alternativePrice" class="text-warm-gold text-sm font-medium mt-1 font-montserrat">
+                    {{ vino.alternativePrice }}
+                  </div>
                 </div>
 
                 <button
@@ -604,14 +608,24 @@ export class AppComponent {
     //   image: "assets/Temporada-malbec-2024.png",
     // },
     {
-      title: "Filippo Figari Malbec 2020",
+      title: "Filippo Figari Malbec Reserva",
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Aromas de chocolate, avellanas y frutos del bosque, cuerpo medio-alto con final cálido y persistente",
       price: "$59.000",
       priceType: "Caja cerrada",
-      alternativePrice: "Malbec Reserva: $48.000",
+      alternativePrice: "Malbec Reserva: $59.000",
       image: "assets/filippo_figari_the_house_malbec_2020_family_collection.webp",
+    },
+    {
+      title: "Filippo Figari Malbec",
+      varietal: "Malbec",
+      region: "Mendoza, Argentina",
+      description: "Aromas de chocolate, avellanas y frutos del bosque, cuerpo medio-alto con final cálido y persistente",
+      price: "$42.000",
+      priceType: "Caja cerrada",
+      alternativePrice: "Malbec: $42.000",
+      image: "assets\filippo-figari-2020.jpg",
     },
     {
       title: "Mil Demonios Malbec",
