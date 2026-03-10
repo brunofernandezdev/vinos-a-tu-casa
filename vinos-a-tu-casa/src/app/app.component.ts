@@ -68,12 +68,13 @@ interface ContactInfo {
               >
                 Espumantes
               </button>
-              <button
+              <!-- Promos oculto temporalmente -->
+              <!-- <button
                 (click)="setActiveSection('promos')"
                 [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-2 rounded-md transition-all duration-300 font-montserrat ' + (activeSection === 'promos' ? 'bg-white/10 text-soft-gold' : '')"
               >
                 Promos
-              </button>
+              </button> -->
               <button
                 (click)="setActiveSection('contacto')"
                 [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-2 rounded-md transition-all duration-300 font-montserrat ' + (activeSection === 'contacto' ? 'bg-white/10 text-soft-gold' : '')"
@@ -112,12 +113,13 @@ interface ContactInfo {
               >
                 Espumantes
               </button>
-              <button
+              <!-- Promos oculto temporalmente -->
+              <!-- <button
                 (click)="setActiveSectionAndCloseMobile('promos')"
                 [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-3 rounded-md transition-all duration-300 font-montserrat text-left ' + (activeSection === 'promos' ? 'bg-white/10 text-soft-gold' : '')"
               >
                 Promos
-              </button>
+              </button> -->
               <button
                 (click)="setActiveSectionAndCloseMobile('contacto')"
                 [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-3 rounded-md transition-all duration-300 font-montserrat text-left ' + (activeSection === 'contacto' ? 'bg-white/10 text-soft-gold' : '')"
@@ -682,6 +684,42 @@ export class AppComponent {
       price: "$119.000",
       priceType: "Caja cerrada",
       image: "assets/Valmonte-winery-icono.jpg",
+    },
+    {
+      title: "Finca Martha Merlot 2021",
+      varietal: "Merlot",
+      region: "San Rafael, Mendoza",
+      description: "Color rojo rubí intenso con destellos violáceos. Aromas de frutos negros maduros, ciruela y notas de chocolate y tabaco. Taninos suaves y bien integrados, cuerpo medio y final prolongado y elegante",
+      price: "$59.000",
+      priceType: "Caja x 6 unidades",
+      image: "assets/Finca-martha-merlot-2021.jpeg",
+    },
+    {
+      title: "Salentein Numina Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Valle de Uco, Mendoza",
+      description: "Intenso y complejo, con aromas a cassis, frutos negros y notas especiadas de pimienta y tabaco. Proveniente del Valle de Uco, criado en roble francés, con taninos maduros y un final persistente y elegante",
+      price: "$80.000",
+      priceType: "Caja x 6 unidades",
+      image: "assets/Numina.jpeg",
+    },
+    {
+      title: "Atemporal Blend",
+      varietal: "Malbec - Cabernet Sauvignon - Petit Verdot",
+      region: "Valle de Uco, Mendoza",
+      description: "Corte de Malbec, Cabernet Sauvignon y Petit Verdot del viñedo Albaneve. Aromas de frutos rojos, violeta, ciruelas y arándanos con toques de regaliz y especias. Criado en roble francés, elegante y de gran estructura",
+      price: "$72.000",
+      priceType: "Caja x 6 unidades",
+      image: "assets/Atemporal blend.jpeg",
+    },
+    {
+      title: "Casa de Herrero Pinot Noir",
+      varietal: "Pinot Noir",
+      region: "Vistaflores, Valle de Uco",
+      description: "100% Pinot Noir de altura, frutos rojos frescos como frutillas y grosellas con delicadas notas florales y leve toque herbáceo. Jugoso y vibrante, con textura ligera, taninos suaves y acidez refrescante. Final limpio y frutal",
+      price: "$72.000",
+      priceType: "Caja x 6 unidades",
+      image: "assets/Casa de Herrrero.jpeg",
     },
   ]
 
