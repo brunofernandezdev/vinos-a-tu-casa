@@ -606,7 +606,7 @@ export class AppComponent {
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Aromas de chocolate, avellanas y frutos del bosque, cuerpo medio-alto con final cálido y persistente",
-      price: "$42.000",
+      price: "$59.000",
       priceType: "Caja cerrada",
       alternativePrice: "Malbec Reserva: $48.000",
       image: "assets/filippo_figari_the_house_malbec_2020_family_collection.webp",
