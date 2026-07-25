@@ -1,6 +1,7 @@
-import { Component } from "@angular/core"
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild } from "@angular/core"
 import { CommonModule } from "@angular/common"
-import { LucideAngularModule, Wine as LucideWine, Phone, Mail, MessageCircle, Gift, Sparkles, Menu, X } from "lucide-angular"
+import { LucideAngularModule, MessageCircle, Menu, X, ArrowLeft, ArrowRight } from "lucide-angular"
+import gsap from "gsap"
 
 interface Espumante {
   title: string
@@ -38,413 +39,292 @@ interface ContactInfo {
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   template: `
-    <div class="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-amber-950">
-      <!-- Header -->
-      <header class="bg-black/30 backdrop-blur-md border-b border-soft-gold/20 sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <lucide-icon [img]="wineIcon" class="h-6 w-6 sm:h-8 sm:w-8 text-soft-gold"></lucide-icon>
-              <h1 class="text-lg sm:text-2xl font-bold text-white font-cormorant tracking-wide">Vinos a tu casa</h1>
-            </div>
-            
-            <!-- Desktop Navigation -->
-            <nav class="hidden lg:flex space-x-6">
-              <button
-                (click)="setActiveSection('home')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-2 rounded-md transition-all duration-300 font-montserrat ' + (activeSection === 'home' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Inicio
-              </button>
-              <button
-                (click)="setActiveSection('vinos')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-2 rounded-md transition-all duration-300 font-montserrat ' + (activeSection === 'vinos' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Vinos
-              </button>
-              <button
-                (click)="setActiveSection('espumantes')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-2 rounded-md transition-all duration-300 font-montserrat ' + (activeSection === 'espumantes' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Espumantes
-              </button>
-              <!-- Promos oculto temporalmente -->
-              <!-- <button
-                (click)="setActiveSection('promos')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-2 rounded-md transition-all duration-300 font-montserrat ' + (activeSection === 'promos' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Promos
-              </button> -->
-              <button
-                (click)="setActiveSection('contacto')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-2 rounded-md transition-all duration-300 font-montserrat ' + (activeSection === 'contacto' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Contacto
-              </button>
-            </nav>
+    <div>
+      <nav class="nav-pill" aria-label="Navegación principal">
+        <a class="nav-pill__wordmark" href="#top" (click)="closeMobileMenu()">
+          Vinos <em style="color: var(--color-gold)">a tu casa</em>
+        </a>
 
-            <!-- Mobile Menu Button -->
-            <button
-              (click)="toggleMobileMenu()"
-              class="lg:hidden text-white hover:text-soft-gold p-2 rounded-md transition-colors"
-            >
-              <lucide-icon [img]="mobileMenuOpen ? closeIcon : menuIcon" class="h-6 w-6"></lucide-icon>
-            </button>
-          </div>
+        <ul class="nav-pill__links">
+          <li><a class="nav-pill__link" href="#top" [class.is-active]="activeNav === 'top'">Inicio</a></li>
+          <li><a class="nav-pill__link" href="#vinos" [class.is-active]="activeNav === 'vinos'">Vinos</a></li>
+          <li><a class="nav-pill__link" href="#espumantes" [class.is-active]="activeNav === 'espumantes'">Espumantes</a></li>
+          <li><a class="nav-pill__link" href="#contacto" [class.is-active]="activeNav === 'contacto'">Contacto</a></li>
+        </ul>
 
-          <!-- Mobile Navigation -->
-          <nav *ngIf="mobileMenuOpen" class="lg:hidden mt-4 pb-4 border-t border-soft-gold/20 pt-4">
-            <div class="flex flex-col space-y-2">
-              <button
-                (click)="setActiveSectionAndCloseMobile('home')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-3 rounded-md transition-all duration-300 font-montserrat text-left ' + (activeSection === 'home' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Inicio
-              </button>
-              <button
-                (click)="setActiveSectionAndCloseMobile('vinos')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-3 rounded-md transition-all duration-300 font-montserrat text-left ' + (activeSection === 'vinos' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Vinos
-              </button>
-              <button
-                (click)="setActiveSectionAndCloseMobile('espumantes')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-3 rounded-md transition-all duration-300 font-montserrat text-left ' + (activeSection === 'espumantes' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Espumantes
-              </button>
-              <!-- Promos oculto temporalmente -->
-              <!-- <button
-                (click)="setActiveSectionAndCloseMobile('promos')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-3 rounded-md transition-all duration-300 font-montserrat text-left ' + (activeSection === 'promos' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Promos
-              </button> -->
-              <button
-                (click)="setActiveSectionAndCloseMobile('contacto')"
-                [class]="'text-white hover:text-soft-gold hover:bg-white/10 font-medium px-4 py-3 rounded-md transition-all duration-300 font-montserrat text-left ' + (activeSection === 'contacto' ? 'bg-white/10 text-soft-gold' : '')"
-              >
-                Contacto
-              </button>
-            </div>
-          </nav>
+        <a class="nav-pill__cta" href="#contacto" data-magnetic>Comprar</a>
+
+        <button
+          class="nav-pill__toggle"
+          (click)="toggleMobileMenu()"
+          [attr.aria-expanded]="mobileMenuOpen"
+          [attr.aria-label]="mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
+        >
+          <lucide-icon [img]="mobileMenuOpen ? closeIcon : menuIcon" class="h-5 w-5"></lucide-icon>
+        </button>
+      </nav>
+
+      <div *ngIf="mobileMenuOpen" class="nav-sheet" role="menu">
+        <a role="menuitem" class="nav-sheet__link" href="#top" [class.is-active]="activeNav === 'top'" (click)="closeMobileMenu()">Inicio</a>
+        <a role="menuitem" class="nav-sheet__link" href="#vinos" [class.is-active]="activeNav === 'vinos'" (click)="closeMobileMenu()">Vinos</a>
+        <a role="menuitem" class="nav-sheet__link" href="#espumantes" [class.is-active]="activeNav === 'espumantes'" (click)="closeMobileMenu()">Espumantes</a>
+        <a role="menuitem" class="nav-sheet__link" href="#contacto" [class.is-active]="activeNav === 'contacto'" (click)="closeMobileMenu()">Contacto</a>
+      </div>
+
+      <!-- Hero -->
+      <section id="top" class="hero">
+        <div class="blooms" aria-hidden="true">
+          <div data-bloom class="bloom" style="top:-10%; right:-8%; width:34rem; height:34rem; background: radial-gradient(circle, rgba(194,64,94,.35), rgba(194,64,94,0) 65%); animation: drift-a 16s ease-in-out infinite;"></div>
+          <div data-bloom class="bloom" style="top:55%; left:-10%; width:30rem; height:30rem; background: radial-gradient(circle, rgba(224,169,109,.24), rgba(224,169,109,0) 65%); animation: drift-b 20s ease-in-out infinite;"></div>
         </div>
-      </header>
 
-      <!-- Home Section -->
-      <main *ngIf="activeSection === 'home'" class="relative">
-        <!-- Hero Section -->
-        <section class="relative h-screen flex items-center justify-center overflow-hidden">
-          <div
-            class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            [style.background-image]="'url(' + wineImage + ')'"
-            [style.filter]="'brightness(0.6) contrast(1.1)'"
-          ></div>
-          <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-black/50"></div>
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
-
-          <div class="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
-            <div class="animate-fade-in-up">
-              <h2 class="text-4xl sm:text-6xl lg:text-7xl xl:text-9xl font-bold mb-6 sm:mb-8 text-gold-gradient glow-effect font-cormorant tracking-wider">
-                Vinos a tu casa
-              </h2>
-            </div>
-            <div class="animate-fade-in-up animate-delay-200">
-              <p class="text-lg sm:text-xl lg:text-2xl xl:text-3xl mb-8 sm:mb-10 text-bronze-gold font-light font-montserrat tracking-wide">
-                Experiencias únicas en cada copa
-              </p>
-            </div>
-            <div class="animate-fade-in-up animate-delay-400">
-              <p class="text-sm sm:text-base lg:text-lg xl:text-xl mb-12 sm:mb-16 text-gray-200 max-w-3xl mx-auto font-light leading-relaxed font-montserrat">
-                Descubrí nuestra exclusiva selección de vinos premium, cuidadosamente elegidos de las mejores bodegas argentinas. 
-                Cada botella es una invitación a vivir momentos extraordinarios.
-              </p>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center animate-fade-in-up animate-delay-400">
-              <button
-                (click)="setActiveSection('vinos')"
-                class="group bg-gradient-to-r from-amber-700 via-amber-600 to-amber-500 hover:from-amber-600 hover:via-amber-500 hover:to-yellow-600 text-white px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold shadow-2xl border-0 transition-all duration-500 hover:scale-110 hover:shadow-amber-600/25 rounded-full flex items-center justify-center font-montserrat"
-              >
-                <lucide-icon [img]="wineIcon" class="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 group-hover:rotate-12 transition-transform duration-300"></lucide-icon>
-                Ver Vinos
-              </button>
-              <button
-                (click)="setActiveSection('contacto')"
-                class="group border-3 border-soft-gold text-soft-gold hover:bg-soft-gold hover:text-black px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold shadow-2xl transition-all duration-500 hover:scale-110 hover:shadow-amber-500/25 rounded-full flex items-center justify-center font-montserrat backdrop-blur-sm bg-black/20"
-              >
-                <lucide-icon [img]="messageCircleIcon" class="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300"></lucide-icon>
-                Contactar
-              </button>
+        <div class="container hero__grid">
+          <div>
+            <p class="eyebrow hero__eyebrow reveal">Los mejores vinos de Argentina</p>
+            <h1 class="hero__title reveal">Vinos que<br />vale la pena<br /><span class="accent-italic">destapar.</span></h1>
+            <p class="hero__lede reveal">
+              Selección de autor de bodegas argentinas, elegida etiqueta por etiqueta.
+              Consultanos por WhatsApp y armamos tu pedido a medida.
+            </p>
+            <div class="hero__actions reveal">
+              <a class="btn btn--primary" data-magnetic href="#vinos">Explorar la colección</a>
+              <a class="btn btn--outline" data-magnetic href="#contacto">Contactar →</a>
             </div>
           </div>
-        </section>
-      </main>
 
-      <!-- Vinos Section -->
-      <main *ngIf="activeSection === 'vinos'" class="relative py-12 sm:py-20">
-        <div
-          class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
-          style="background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1200&h=800&fit=crop');"
-        ></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-red-950/80 to-black/90"></div>
-        <div class="relative z-10 container mx-auto px-4">
-          <div class="text-center mb-12 sm:mb-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 font-cormorant text-gold-gradient">Nuestros Vinos</h2>
-            <p class="text-lg sm:text-xl text-bronze-gold font-light font-montserrat">Selección premium de las mejores bodegas argentinas</p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <div
-              *ngFor="let vino of vinos"
-              class="bg-black/50 backdrop-blur-sm border border-soft-gold/30 hover:border-soft-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-600/10 rounded-xl overflow-hidden"
-            >
-              <div class="p-4 sm:p-6 pb-2">
-                <div class="flex gap-3 sm:gap-4">
-                  <div class="w-40 h-52 sm:w-48 sm:h-60 flex-shrink-0">
-                    <img
-                      [src]="vino.image"
-                      [alt]="vino.title"
-                      class="w-full h-full object-contain rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h3 class="text-white text-base sm:text-lg font-cormorant font-semibold mb-1 leading-tight">{{ vino.title }}</h3>
-                    <p class="text-soft-gold text-sm font-medium font-montserrat">{{ vino.varietal }}</p>
-                    <p class="text-gray-400 text-xs font-montserrat">{{ vino.region }}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4 sm:p-6 pt-0">
-                <p class="text-gray-300 text-sm mb-4 font-light leading-relaxed font-montserrat">{{ vino.description }}</p>
-
-                <div class="mb-6">
-                  <div class="text-xl sm:text-2xl font-cormorant">
-                    <ng-container *ngIf="vino.oldPrice; else normalPrice">
-                      <span class="text-gray-400 line-through mr-2">{{ vino.oldPrice }}</span>
-                      <span class="text-soft-gold font-bold">{{ vino.price }}</span>
-                    </ng-container>
-                    <ng-template #normalPrice>
-                      <span class="text-soft-gold font-bold">{{ vino.price }}</span>
-                    </ng-template>
-                  </div>
-                  <div class="text-gray-400 text-xs font-montserrat">{{ vino.priceType }}</div>
-                  <div *ngIf="vino.alternativePrice" class="text-warm-gold text-sm font-medium mt-1 font-montserrat">
-                    {{ vino.alternativePrice }}
-                  </div>
-                </div>
-
-                <button
-                  (click)="setActiveSection('contacto')"
-                  class="w-full bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-semibold transition-all duration-300 hover:scale-105 py-3 px-4 rounded-lg flex items-center justify-center font-montserrat shadow-lg hover:shadow-amber-600/25 text-sm sm:text-base"
-                >
-                  <lucide-icon [img]="messageCircleIcon" class="mr-2 h-4 w-4"></lucide-icon>
-                  Consultar Disponibilidad
-                </button>
-              </div>
+          <div class="hero__visual reveal" *ngIf="heroWine as w">
+            <div class="hero__visual-glow" aria-hidden="true"></div>
+            <img class="hero__bottle" [src]="w.image" [alt]="w.title" width="260" height="500" loading="eager" fetchpriority="high" />
+            <div class="hero__tag">
+              <div class="hero__tag-label">Etiqueta destacada</div>
+              <div class="hero__tag-name">{{ w.title }}</div>
+              <div class="hero__tag-meta">{{ w.region }} · {{ w.price }}</div>
             </div>
           </div>
         </div>
-      </main>
 
-      <!-- Espumantes Section -->
-      <main *ngIf="activeSection === 'espumantes'" class="relative py-12 sm:py-20">
-        <div
-          class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
-          style="background-image: url('https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=1200&h=800&fit=crop');"
-        ></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-red-950/80 to-black/90"></div>
-        <div class="relative z-10 container mx-auto px-4">
-          <div class="text-center mb-12 sm:mb-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 font-cormorant text-gold-gradient">Espumantes</h2>
-            <p class="text-lg sm:text-xl text-bronze-gold font-light font-montserrat">Celebrá cada momento con nuestros espumantes premium</p>
-          </div>
+        <div class="scroll-cue">
+          <span class="scroll-cue__pill"><span class="scroll-cue__dot"></span></span>
+          Deslizá para descubrir
+        </div>
+      </section>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <div
-              *ngFor="let espumante of espumantes"
-              class="bg-black/50 backdrop-blur-sm border border-soft-gold/30 hover:border-soft-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-600/10 rounded-xl overflow-hidden"
-            >
-              <div class="p-4 sm:p-6 pb-2">
-                <div class="flex gap-3 sm:gap-4">
-                  <div class="w-40 h-52 sm:w-48 sm:h-60 flex-shrink-0">
-                    <img
-                      [src]="espumante.image"
-                      [alt]="espumante.title"
-                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h3 class="text-white text-base sm:text-lg font-cormorant font-semibold mb-1 leading-tight">{{ espumante.title }}</h3>
-                    <p class="text-soft-gold text-sm font-medium font-montserrat">{{ espumante.varietal }}</p>
-                    <p class="text-gray-400 text-xs font-montserrat">{{ espumante.region }}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4 sm:p-6 pt-0">
-                <p class="text-gray-300 text-sm mb-4 font-light leading-relaxed font-montserrat">{{ espumante.description }}</p>
-
-                <div class="mb-6">
-                  <div class="text-soft-gold font-bold text-xl sm:text-2xl font-cormorant">{{ espumante.price }}</div>
-                  <div class="text-gray-400 text-xs font-montserrat">{{ espumante.priceType }}</div>
-                  <div *ngIf="espumante.alternativePrice" class="text-warm-gold text-sm font-medium mt-1 font-montserrat">
-                    {{ espumante.alternativePrice }}
-                  </div>
-                </div>
-
-                <button
-                  (click)="setActiveSection('contacto')"
-                  class="w-full bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-semibold transition-all duration-300 hover:scale-105 py-3 px-4 rounded-lg flex items-center justify-center font-montserrat shadow-lg hover:shadow-amber-600/25 text-sm sm:text-base"
-                >
-                  <lucide-icon [img]="sparklesIcon" class="mr-2 h-4 w-4"></lucide-icon>
-                  Consultar Disponibilidad
-                </button>
-              </div>
+      <!-- Selección destacada -->
+      <section class="section section--tight">
+        <div class="container carousel">
+          <div class="carousel__head">
+            <div>
+              <p class="eyebrow reveal">Selección destacada</p>
+              <h2 class="section-head__title reveal" style="margin-top: 0.5rem">Para arrancar bien.</h2>
+            </div>
+            <div class="carousel__controls">
+              <button class="carousel__btn" (click)="scrollCarousel(-1)" aria-label="Ver anteriores">
+                <lucide-icon [img]="arrowLeftIcon" class="h-5 w-5"></lucide-icon>
+              </button>
+              <button class="carousel__btn" (click)="scrollCarousel(1)" aria-label="Ver siguientes">
+                <lucide-icon [img]="arrowRightIcon" class="h-5 w-5"></lucide-icon>
+              </button>
             </div>
           </div>
-        </div>
-      </main>
 
-      <!-- Promos Section -->
-      <main *ngIf="activeSection === 'promos'" class="relative py-12 sm:py-20">
-        <div
-          class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
-          style="background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1200&h=800&fit=crop');"
-        ></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-red-950/80 to-black/90"></div>
-        <div class="relative z-10 container mx-auto px-4">
-          <div class="text-center mb-12 sm:mb-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 font-cormorant text-gold-gradient">Promociones Especiales</h2>
-            <p class="text-lg sm:text-xl text-bronze-gold font-light font-montserrat">Aprovechá nuestras ofertas exclusivas</p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <div
-              *ngFor="let promo of promos"
-              class="bg-black/50 backdrop-blur-sm border border-soft-gold/30 hover:border-soft-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-600/10 rounded-xl overflow-hidden"
-            >
-              <div class="p-4 sm:p-6 pb-2">
-                <div class="flex gap-3 sm:gap-4">
-                  <div class="w-40 h-52 sm:w-48 sm:h-60 flex-shrink-0">
-                    <img
-                      [src]="promo.image"
-                      [alt]="promo.title"
-                      class="w-full h-full object-cover rounded-lg border border-soft-gold/30 shadow-lg transition-transform duration-300 hover:scale-125 hover:z-10 relative cursor-pointer"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h3 class="text-white text-base sm:text-lg font-cormorant font-semibold mb-1 leading-tight">{{ promo.title }}</h3>
-                    <p class="text-soft-gold text-sm font-medium font-montserrat">{{ promo.varietal }}</p>
-                    <p class="text-gray-400 text-xs font-montserrat">{{ promo.region }}</p>
-                  </div>
-                </div>
+          <div class="carousel__track" #carouselTrack>
+            <article class="carousel__card reveal" *ngFor="let vino of featuredVinos; trackBy: trackByTitle">
+              <div class="carousel__card-glow" aria-hidden="true"></div>
+              <div class="carousel__card-media">
+                <img [src]="vino.image" [alt]="vino.title" loading="lazy" width="220" height="320" />
               </div>
-              <div class="p-4 sm:p-6 pt-0">
-                <p class="text-gray-300 text-sm mb-4 font-light leading-relaxed font-montserrat">{{ promo.description }}</p>
-
-                <div *ngIf="promo.wines" class="mb-4">
-                  <h4 class="text-white font-semibold mb-2 font-cormorant text-sm">Incluye:</h4>
-                  <ul class="text-gray-300 text-xs space-y-1">
-                    <li *ngFor="let wine of promo.wines" class="flex items-start font-light font-montserrat">
-                      <lucide-icon [img]="wineIcon" class="h-3 w-3 text-soft-gold mr-2 flex-shrink-0 mt-0.5"></lucide-icon>
-                      {{ wine }}
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="mb-6">
-                  <div class="text-soft-gold font-bold text-xl sm:text-2xl font-cormorant">{{ promo.price }}</div>
-                  <div class="text-gray-400 text-xs font-montserrat">{{ promo.priceType }}</div>
-                </div>
-
-                <button
-                  (click)="setActiveSection('contacto')"
-                  class="w-full bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-semibold transition-all duration-300 hover:scale-105 py-3 px-4 rounded-lg flex items-center justify-center font-montserrat shadow-lg hover:shadow-amber-600/25 text-sm sm:text-base"
-                >
-                  <lucide-icon [img]="giftIcon" class="mr-2 h-4 w-4"></lucide-icon>
-                  Consultar Disponibilidad
-                </button>
+              <p class="carousel__card-tag">{{ vino.varietal }} · {{ vino.region }}</p>
+              <h3 class="carousel__card-name">{{ vino.title }}</h3>
+              <div class="carousel__card-row">
+                <span>{{ vino.priceType }}</span>
+                <span class="carousel__card-price tabular-nums">{{ vino.price }}</span>
               </div>
-            </div>
+            </article>
           </div>
         </div>
-      </main>
+      </section>
 
-      <!-- Contacto Section -->
-      <main *ngIf="activeSection === 'contacto'" class="py-12 sm:py-20">
-        <div class="container mx-auto px-4">
-          <div class="text-center mb-12 sm:mb-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 font-cormorant text-gold-gradient">Contactanos</h2>
-            <p class="text-lg sm:text-xl text-bronze-gold font-light font-montserrat">
-              Estamos aquí para ayudarte a encontrar el vino perfecto
+      <!-- Manifiesto -->
+      <section class="section">
+        <div class="container manifesto">
+          <p class="eyebrow manifesto__eyebrow reveal">Cómo elegimos</p>
+          <div>
+            <h2 class="manifesto__heading reveal">
+              No es un catálogo. Es una selección que armamos a mano,
+              <span class="accent-italic">botella por botella</span>.
+            </h2>
+            <p class="manifesto__lede reveal">
+              Cada vino de esta lista lo probamos y elegimos nosotros — no un algoritmo.
+              Si dudás entre dos etiquetas, escribinos: te contamos cuál conviene según la ocasión.
             </p>
           </div>
+        </div>
+      </section>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
-            <div
-              *ngFor="let contact of contactInfo"
-              class="bg-black/50 backdrop-blur-sm border border-soft-gold/30 hover:border-soft-gold/60 transition-all duration-300 hover:scale-105 rounded-xl p-4 sm:p-6 hover:shadow-2xl hover:shadow-amber-600/10"
-            >
-              <div class="flex items-start space-x-3 sm:space-x-4">
-                <div class="bg-gradient-to-br from-amber-700 to-amber-600 p-3 sm:p-4 rounded-full shadow-lg flex-shrink-0">
-                  <div *ngIf="contact.isWhatsApp; else defaultIcon" class="h-5 w-5 sm:h-6 sm:w-6 text-white">
-                    <!-- WhatsApp SVG Icon -->
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                    </svg>
+      <!-- Marquee -->
+      <section class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span class="marquee__seg">Malbec <span class="marquee__dot">·</span> Cabernet Franc <span class="marquee__dot">·</span> Cabernet Sauvignon <span class="marquee__dot">·</span> Chardonnay <span class="marquee__dot">·</span> Torrontés <span class="marquee__dot">·</span> Pinot Noir <span class="marquee__dot">·</span> </span>
+          <span class="marquee__seg">Malbec <span class="marquee__dot">·</span> Cabernet Franc <span class="marquee__dot">·</span> Cabernet Sauvignon <span class="marquee__dot">·</span> Chardonnay <span class="marquee__dot">·</span> Torrontés <span class="marquee__dot">·</span> Pinot Noir <span class="marquee__dot">·</span> </span>
+        </div>
+      </section>
+
+      <!-- Vinos -->
+      <section id="vinos" class="section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow section-head__eyebrow reveal">Colección</p>
+            <h2 class="section-head__title reveal">Nuestra <span class="accent-italic">colección</span>.</h2>
+            <p class="section-head__lede reveal">Bodegas de todo el país, etiqueta por etiqueta.</p>
+          </div>
+
+          <div class="product-grid">
+            <article class="product reveal" *ngFor="let vino of vinos; trackBy: trackByTitle">
+              <div class="product__media">
+                <img [src]="vino.image" [alt]="vino.title" loading="lazy" width="400" height="500" />
+              </div>
+              <div class="product__body">
+                <div class="product__tags">
+                  <span class="product__varietal">{{ vino.varietal }}</span>
+                  <span class="product__region">{{ vino.region }}</span>
+                </div>
+                <h3 class="product__name">{{ vino.title }}</h3>
+                <p class="product__desc">{{ vino.description }}</p>
+                <div class="product__price-row">
+                  <div>
+                    <span *ngIf="vino.oldPrice" class="product__price--old">{{ vino.oldPrice }}</span>
+                    <span class="product__price tabular-nums">{{ vino.price }}</span>
                   </div>
-                  <ng-template #defaultIcon>
-                    <lucide-icon [img]="contact.icon" class="h-5 w-5 sm:h-6 sm:w-6 text-white"></lucide-icon>
-                  </ng-template>
+                  <div class="product__price-type">{{ vino.priceType }}</div>
                 </div>
-                <div class="flex-1 min-w-0">
-                  <h3 class="text-white font-bold text-base sm:text-lg mb-1 font-cormorant">{{ contact.type }}</h3>
-                  <p class="text-bronze-gold text-sm mb-2 sm:mb-3 font-light font-montserrat">{{ contact.description }}</p>
-                  <a
-                    [href]="contact.link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-soft-gold hover:text-warm-gold font-semibold text-base sm:text-lg transition-colors font-montserrat hover:underline break-all"
-                  >
-                    {{ contact.value }}
-                  </a>
+                <a class="btn btn--outline btn--sm btn--block product__action" href="#contacto">Consultar →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Espumantes -->
+      <section id="espumantes" class="section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow section-head__eyebrow reveal">Para brindar</p>
+            <h2 class="section-head__title reveal">Espumantes</h2>
+            <p class="section-head__lede reveal">Etiquetas para celebrar cada momento.</p>
+          </div>
+
+          <div class="product-grid">
+            <article class="product reveal" *ngFor="let espumante of espumantes; trackBy: trackByTitle">
+              <div class="product__media">
+                <img [src]="espumante.image" [alt]="espumante.title" loading="lazy" width="400" height="500" />
+              </div>
+              <div class="product__body">
+                <div class="product__tags">
+                  <span class="product__varietal">{{ espumante.varietal }}</span>
+                  <span class="product__region">{{ espumante.region }}</span>
                 </div>
+                <h3 class="product__name">{{ espumante.title }}</h3>
+                <p class="product__desc">{{ espumante.description }}</p>
+                <div class="product__price-row">
+                  <div class="product__price tabular-nums">{{ espumante.price }}</div>
+                  <div class="product__price-type">{{ espumante.priceType }}</div>
+                </div>
+                <a class="btn btn--outline btn--sm btn--block product__action" href="#contacto">Consultar →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cómo pedís -->
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow section-head__eyebrow reveal">Cómo pedís</p>
+            <h2 class="section-head__title reveal">Simple, directo, por WhatsApp.</h2>
+          </div>
+          <div class="steps">
+            <div class="step reveal">
+              <div class="step__num">01</div>
+              <h3 class="step__title">Elegís</h3>
+              <p class="step__body">Mirás el catálogo de vinos y espumantes y elegís lo que te copa.</p>
+            </div>
+            <div class="step reveal">
+              <div class="step__num">02</div>
+              <h3 class="step__title">Consultás</h3>
+              <p class="step__body">Nos escribís por WhatsApp — Valentina o Julio te asesoran según la ocasión.</p>
+            </div>
+            <div class="step reveal">
+              <div class="step__num">03</div>
+              <h3 class="step__title">Recibís</h3>
+              <p class="step__body">Coordinamos el envío directo a tu casa.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contacto -->
+      <section id="contacto" class="section">
+        <div class="container">
+          <div class="cta-band reveal">
+            <p class="eyebrow cta-band__eyebrow">Tu próxima botella te espera</p>
+            <h2 class="cta-band__title">Empecemos.</h2>
+          </div>
+          <p class="contact-lede reveal">Te asesoramos personalmente por WhatsApp para armar tu pedido.</p>
+
+          <div class="contact-grid">
+            <div class="contact-card reveal" *ngFor="let contact of contactInfo; trackBy: trackByType">
+              <div class="contact-card__icon">
+                <svg *ngIf="contact.isWhatsApp; else defaultIcon" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                </svg>
+                <ng-template #defaultIcon>
+                  <lucide-icon [img]="contact.icon" style="width: 20px; height: 20px;"></lucide-icon>
+                </ng-template>
+              </div>
+              <div>
+                <h3 class="contact-card__type">{{ contact.type }}</h3>
+                <p class="contact-card__desc">{{ contact.description }}</p>
+                <a [href]="contact.link" target="_blank" rel="noopener noreferrer" class="contact-card__value" data-magnetic>{{ contact.value }}</a>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </section>
 
-      <!-- Footer -->
-      <footer class="bg-black/70 backdrop-blur-sm border-t border-soft-gold/20 py-6 sm:py-8">
-        <div class="container mx-auto px-4 text-center">
-          <div class="flex items-center justify-center space-x-2 sm:space-x-3 mb-3 sm:mb-4">
-            <lucide-icon [img]="wineIcon" class="h-5 w-5 sm:h-6 sm:w-6 text-soft-gold"></lucide-icon>
-            <span class="text-white font-bold text-base sm:text-lg font-cormorant tracking-wide">Vinos a tu casa</span>
-          </div>
-          <p class="text-gray-400 font-light font-montserrat text-sm sm:text-base">© 2024 Vinos a tu casa. Todos los derechos reservados.</p>
-          <p class="text-gray-500 text-xs sm:text-sm mt-2 font-light font-montserrat">
-            Venta de bebidas alcohólicas prohibida a menores de 18 años
-          </p>
+      <footer class="foot-stmt">
+        <div class="container foot-stmt__row">
+          <span class="foot-stmt__wordmark">Vinos <em style="color: var(--color-gold)">a tu casa</em></span>
+          <span class="foot-stmt__legal">© {{ currentYear }} · Venta de bebidas alcohólicas prohibida a menores de 18 años</span>
         </div>
       </footer>
     </div>
   `,
 })
-export class AppComponent {
-  activeSection = "home"
+export class AppComponent implements AfterViewInit, OnDestroy {
   mobileMenuOpen = false
-  wineImage =
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vinos-452113115-612x612.jpg-HXI4QUo1k52HuW1U4Z4GBwsDAkY8cb.jpeg"
+  activeNav = "top"
+  currentYear = new Date().getFullYear()
+
+  @ViewChild("carouselTrack") carouselTrack?: ElementRef<HTMLDivElement>
 
   // Lucide Icons
-  wineIcon = LucideWine
-  phoneIcon = Phone
-  mailIcon = Mail
-  messageCircleIcon = MessageCircle
-  giftIcon = Gift
-  sparklesIcon = Sparkles
   menuIcon = Menu
   closeIcon = X
+  arrowLeftIcon = ArrowLeft
+  arrowRightIcon = ArrowRight
+
+  private cleanupFns: Array<() => void> = []
+  private featuredTitles = [
+    "Viamonte Icono Malbec 2020",
+    "Dominio Rutini Malbec",
+    "Mil Demonios Malbec",
+    "Ernesto Catena Tikal Natural Bivarietal",
+    "Filippo Figari Malbec Reserva",
+    "Casa de Herrero Pinot Noir",
+  ]
+
+  constructor(private zone: NgZone) {}
 
   vinos: any[] = [
     {
@@ -454,7 +334,7 @@ export class AppComponent {
       description: "Frutado, notas de ciruelas maduras, toques de chocolate y especias suaves",
       price: "$48.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/trumpeter-malbec.webp",
+      image: "assets/cutout/trumpeter-malbec.png",
     },
     {
       title: "Trumpeter Sauvignon Blanc",
@@ -463,7 +343,7 @@ export class AppComponent {
       description: "Fresco y frutal, con aromas cítricos de pomelo y limón, notas vegetales y minerales, entrada fresca y chispeante",
       price: "$48.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/trumpeter-sauvigob-blanc.webp",
+      image: "assets/cutout/trumpeter-sauvigob-blanc.png",
     },
     {
       title: "Trumpeter Merlot",
@@ -472,7 +352,7 @@ export class AppComponent {
       description: "Intenso en nariz con aromas a cereza, ciruela y notas especiadas, taninos suaves y sedosos, final persistente",
       price: "$48.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/trumpeter-merlot.webp",
+      image: "assets/cutout/trumpeter-merlot.png",
     },
     {
       title: "Luigi Bosca de Sangre",
@@ -481,7 +361,7 @@ export class AppComponent {
       description: "Frutado, cuerpo medio, vibrante",
       price: "$96.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/luigi-bosca-sangre.webp",
+      image: "assets/cutout/luigi-bosca-sangre.png",
     },
     {
       title: "Bedz Malbec Estate 2022",
@@ -491,7 +371,7 @@ export class AppComponent {
       price: "$45.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "$12.000 (2 unidades)",
-      image: "assets/bedz-estate-malbec.png",
+      image: "assets/cutout/bedz-estate-malbec.png",
     },
     {
       title: "Bedz Malbec Reserva 2021",
@@ -501,7 +381,7 @@ export class AppComponent {
       price: "55.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "$18.000 (2 unidades)",
-      image: "assets/bedz-malbec-reserva-2015.jpg",
+      image: "assets/cutout/bedz-malbec-reserva-2015-2.png",
     },
     {
       title: "De Moño Rojo Cabernet Franc",
@@ -509,10 +389,10 @@ export class AppComponent {
       region: "Mendoza, Argentina",
       description: "Aromas herbáceos, con notas de frutos rojos y especias suaves, taninos elegantes",
       // oldPrice: "$75.000",        // precio tachado
-      price: "$75.000", 
+      price: "$75.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "$20.000 (2 unidades)",
-      image: "assets/de-mono-rojo.webp",
+      image: "assets/cutout/de-mono-rojo.png",
     },
     {
       title: "Dominio Rutini Malbec",
@@ -522,7 +402,7 @@ export class AppComponent {
       price: "$120.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Combina en distintos varietales: Chardonnay, Malbec, Cabernet Sauvignon, Cabernet Franc",
-      image: "assets/dominio-rutini.webp",
+      image: "assets/cutout/dominio-rutini-2.png",
     },
     // {
     //   title: "Cepa Tradicional Bodega La Rural",
@@ -541,7 +421,7 @@ export class AppComponent {
       description: "Intenso, con notas de cassis, pimientos y especias, taninos firmes y elegantes",
       price: "$9.000",
       priceType: "Por unidad",
-      image: "assets/los-escasos-cabernet.jpg",
+      image: "assets/cutout/los-escasos-cabernet.png",
     },
     {
       title: "Malabarista Cabernet Franc",
@@ -550,7 +430,7 @@ export class AppComponent {
       description: "Aromas herbáceos, con notas de frutos rojos y especias suaves, taninos elegantes",
       price: "$12.000",
       priceType: "Por unidad",
-      image: "assets/malabarista-cabernet-franc.jpg",
+      image: "assets/cutout/malabarista-cabernet-franc.png",
     },
     {
       title: "Kaiken Obertura Cabernet Franc",
@@ -559,7 +439,7 @@ export class AppComponent {
       description: "Complejo, con notas de frutos negros, especias y un toque mineral",
       price: "$18.000",
       priceType: "Por unidad",
-      image: "assets/kaiken-obertura.png",
+      image: "assets/cutout/kaiken-obertura.png",
     },
     {
       title: "UL Malbec",
@@ -568,7 +448,7 @@ export class AppComponent {
       description: "Elegante, con notas de frutos rojos maduros y un toque de roble francés",
       price: "2 x $28.000",
       priceType: "Por combinación de 2 unidades",
-      image: "assets/ul-malbec.jpg",
+      image: "assets/cutout/ul-malbec.png",
     },
     {
       title: "Lui Umile Malbec",
@@ -577,7 +457,7 @@ export class AppComponent {
       description: "Premium, con notas complejas de frutos negros, especias y un final persistente",
       price: "$25.000",
       priceType: "Por combinación de 2 unidades",
-      image: "assets/lui-umile-malbec.jpg",
+      image: "assets/cutout/lui-umile-malbec.png",
     },
     {
       title: "Virgen Malbec Orgánico",
@@ -586,7 +466,7 @@ export class AppComponent {
       description: "Orgánico, con notas frutales puras, sin sulfitos agregados, final limpio y natural",
       price: "$9.000",
       priceType: "Por unidad",
-      image: "assets/virgen-malbec-organico.webp",
+      image: "assets/cutout/virgen-malbec-organico.png",
     },
     {
       title: "Callejón de las Brujas",
@@ -596,7 +476,7 @@ export class AppComponent {
       price: "$69.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Combinables - 3 variedades: Malbec, Cabernet Franc y Cabernet Sauvignon",
-      image: "assets/callejon-de-las-brujas.webp",
+      image: "assets/cutout/callejon-de-las-brujas.png",
     },
     // {
     //   title: "Temporada Malbec 2024",
@@ -615,7 +495,7 @@ export class AppComponent {
       price: "$59.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Malbec Reserva: $59.000",
-      image: "assets/filippo_figari_the_house_malbec_2020_family_collection.webp",
+      image: "assets/cutout/filippo_figari_the_house_malbec_2020_family_collection.png",
     },
     {
       title: "Filippo Figari Malbec",
@@ -625,7 +505,7 @@ export class AppComponent {
       price: "$42.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Malbec: $42.000",
-      image: "assets/filippo-figari-2020.jpg",
+      image: "assets/cutout/filippo-figari-2020-2.png",
     },
     {
       title: "Mil Demonios Malbec",
@@ -634,7 +514,7 @@ export class AppComponent {
       description: "Gran cuerpo y personalidad, notas de frutos negros, roble, chocolate amargo y tabaco, selección de uvas premium",
       price: "$105.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Mil-Demonios-Malbec-scaled.webp",
+      image: "assets/cutout/Mil-Demonios-Malbec-scaled.png",
     },
     {
       title: "Ernesto Catena Mara",
@@ -643,7 +523,7 @@ export class AppComponent {
       description: "Orgánico del Valle de Uco, notas de cerezas negras, moras, especias y pimienta negra, taninos suaves e integrados",
       price: "$95.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Eernesto-catena-Mara.webp",
+      image: "assets/cutout/ernesto-catena-mara-2.png",
     },
     {
       title: "Ernesto Catena Tikal Natural Bivarietal",
@@ -652,7 +532,7 @@ export class AppComponent {
       description: "Biodinámico del Valle de Uco, aromas de cerezas frescas, frambuesas negras y cacao especiado, equilibrado y elegante",
       price: "$119.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Eernesto-catena-tikal-natural.webp",
+      image: "assets/cutout/Eernesto-catena-tikal-natural.png",
     },
     {
       title: "Encuentro de Rutini Malbec",
@@ -661,7 +541,7 @@ export class AppComponent {
       description: "Aromas intensos de ciruelas maduras, cerezas negras y notas de vainilla, taninos sedosos con final prolongado y elegante",
       price: "$66.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Encuentro-Rutini.webp",
+      image: "assets/cutout/encuentro-rutini-2.png",
     },
     {
       title: "El Joven Equilibrista Malbec",
@@ -670,7 +550,7 @@ export class AppComponent {
       description: "Fresco y frutal, con notas de frutos rojos, violetas y un toque especiado, ideal para disfrutar joven",
       price: "$54.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/vino-el-joven-equilibrista-malbec-bodega-el-equilibrista.webp",
+      image: "assets/cutout/vino-el-joven-equilibrista-malbec-bodega-el-equilibrista.png",
     },
     {
       title: "Kaiken Indómito Malbec",
@@ -679,7 +559,7 @@ export class AppComponent {
       description: "Intenso y expresivo, con aromas de moras, cassis y sutiles notas de roble, cuerpo medio con taninos aterciopelados",
       price: "$63.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Kaiken-indomito.png",
+      image: "assets/cutout/Kaiken-indomito.png",
     },
     {
       title: "Ricardo Santos Malbec - Semillón",
@@ -688,7 +568,7 @@ export class AppComponent {
       description: "Blend único con aromas de frutos negros y toques florales del Semillón, equilibrado con acidez refrescante y final persistente",
       price: "$63.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Ricardo-santos-malbec.jpg",
+      image: "assets/cutout/Ricardo-santos-malbec.png",
     },
     {
       title: "Viamonte Icono Malbec 2020",
@@ -697,7 +577,7 @@ export class AppComponent {
       description: "Color rojo violáceo intenso y destellos púrpura. Aromas complejos donde se destaca fruta roja bien madura como mermelada de ciruelas. Su crianza en roble francés por 24 meses y sus posteriores 12 meses en estiba le aportan notas de vainilla. Vino aterciopelado con un final extenso",
       price: "$119.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Valmonte-winery-icono.jpg",
+      image: "assets/cutout/Valmonte-winery-icono.png",
     },
     {
       title: "Finca Martha Merlot 2021",
@@ -706,7 +586,7 @@ export class AppComponent {
       description: "Color rojo rubí intenso con destellos violáceos. Aromas de frutos negros maduros, ciruela y notas de chocolate y tabaco. Taninos suaves y bien integrados, cuerpo medio y final prolongado y elegante",
       price: "$59.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Finca-martha-merlot-2021.jpeg",
+      image: "assets/cutout/finca-martha-merlot-2021-2.png",
     },
     {
       title: "Salentein Numina Cabernet Sauvignon",
@@ -715,7 +595,7 @@ export class AppComponent {
       description: "Intenso y complejo, con aromas a cassis, frutos negros y notas especiadas de pimienta y tabaco. Proveniente del Valle de Uco, criado en roble francés, con taninos maduros y un final persistente y elegante",
       price: "$80.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Numina.jpeg",
+      image: "assets/cutout/numina-2.png",
     },
     {
       title: "Atemporal Blend",
@@ -724,7 +604,7 @@ export class AppComponent {
       description: "Corte de Malbec, Cabernet Sauvignon y Petit Verdot del viñedo Albaneve. Aromas de frutos rojos, violeta, ciruelas y arándanos con toques de regaliz y especias. Criado en roble francés, elegante y de gran estructura",
       price: "$72.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Atemporal blend.jpeg",
+      image: "assets/cutout/atemporal-blend-2.png",
     },
     {
       title: "Casa de Herrero Pinot Noir",
@@ -733,7 +613,7 @@ export class AppComponent {
       description: "100% Pinot Noir de altura, frutos rojos frescos como frutillas y grosellas con delicadas notas florales y leve toque herbáceo. Jugoso y vibrante, con textura ligera, taninos suaves y acidez refrescante. Final limpio y frutal",
       price: "$72.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/Casa de Herrrero.jpeg",
+      image: "assets/cutout/casa-de-herrero-2.png",
     },
   ]
 
@@ -745,7 +625,7 @@ export class AppComponent {
       description: "Fresco, con burbujas finas, notas de manzana verde y toques de pan tostado",
       price: "$48.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/espumante-animal-catena.jpg",
+      image: "assets/cutout/espumante-animal-catena.png",
     },
     {
       title: "Espumante San Felipe Extra Dulce Rosé",
@@ -755,7 +635,7 @@ export class AppComponent {
       price: "$50.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Combina 3 de cada uno (Rosé/Malbec y Torrontés)",
-      image: "assets/espumante-san-felipe-rose.jpg",
+      image: "assets/cutout/espumante-san-felipe-rose.png",
     },
     {
       title: "Espumante San Felipe Torrontés",
@@ -765,7 +645,7 @@ export class AppComponent {
       price: "$50.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Combina 3 de cada uno (Rosé/Malbec y Torrontés)",
-      image: "assets/espumante-san-felipe-torrontes.jpg",
+      image: "assets/cutout/espumante-san-felipe-torrontes.png",
     },
     {
       title: "Atemporal Extra Brut Chardonnay - Pinot Noir",
@@ -774,7 +654,7 @@ export class AppComponent {
       description: "Fresco, con notas de manzana verde y un toque delicado de frutos rojos",
       price: "$11.000",
       priceType: "Por unidad",
-      image: "assets/atemporal-extra-brut.png",
+      image: "assets/cutout/atemporal-extra-brut.png",
     },
   ]
 
@@ -791,7 +671,7 @@ export class AppComponent {
       ],
       price: "Desde $9.000",
       priceType: "Precio por unidad según selección",
-      image: "assets/malabarista-cabernet-franc.jpg",
+      image: "assets/cutout/malabarista-cabernet-franc.png",
     },
     {
       title: "Promo Especial",
@@ -805,7 +685,7 @@ export class AppComponent {
       ],
       price: "$9.000",
       priceType: "Por unidad",
-      image: "assets/los-escasos-cabernet.jpg",
+      image: "assets/cutout/los-escasos-cabernet.png",
     },
     {
       title: "Promo Premium",
@@ -815,7 +695,7 @@ export class AppComponent {
       wines: ["Lui Umile Malbec (2 unidades) - $25.000", "UL Malbec (2 unidades) - $25.000"],
       price: "$25.000",
       priceType: "Por combinación de 2 unidades",
-      image: "assets/lui-umile-malbec.jpg",
+      image: "assets/cutout/lui-umile-malbec.png",
     },
     {
       title: "Promo",
@@ -829,7 +709,6 @@ export class AppComponent {
     },
   ]
 
-  
   contactInfo: any[] = [
     {
       type: "WhatsApp Valentina",
@@ -849,16 +728,189 @@ export class AppComponent {
     },
   ]
 
-  setActiveSection(section: string) {
-    this.activeSection = section
+  get featuredVinos(): any[] {
+    return this.featuredTitles
+      .map((title) => this.vinos.find((v) => v.title === title))
+      .filter((v): v is any => !!v)
+  }
+
+  get heroWine(): any {
+    return this.featuredVinos[0] ?? this.vinos[0]
+  }
+
+  trackByTitle(_index: number, item: { title: string }): string {
+    return item.title
+  }
+
+  trackByType(_index: number, item: { type: string }): string {
+    return item.type
   }
 
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen
   }
 
-  setActiveSectionAndCloseMobile(section: string) {
-    this.activeSection = section
+  closeMobileMenu() {
     this.mobileMenuOpen = false
+  }
+
+  scrollCarousel(direction: number) {
+    const el = this.carouselTrack?.nativeElement
+    if (!el) return
+    const amount = Math.min(el.clientWidth * 0.9, 420)
+    el.scrollBy({ left: direction * amount, behavior: "smooth" })
+  }
+
+  ngAfterViewInit(): void {
+    this.zone.runOutsideAngular(() => {
+      this.setupSectionObserver()
+      this.setupReveal()
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      const finePointer = window.matchMedia("(pointer: fine)").matches
+
+      if (!reducedMotion) {
+        this.setupMagnetic()
+      }
+      if (!reducedMotion && finePointer) {
+        this.setupCustomCursor()
+        this.setupParallax()
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.cleanupFns.forEach((fn) => {
+      try {
+        fn()
+      } catch {
+        // no-op
+      }
+    })
+  }
+
+  private setupSectionObserver() {
+    const ids = ["top", "vinos", "espumantes", "contacto"]
+    const sections = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el)
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id
+            this.zone.run(() => {
+              this.activeNav = id
+            })
+          }
+        })
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
+    )
+    sections.forEach((s) => io.observe(s))
+    this.cleanupFns.push(() => io.disconnect())
+  }
+
+  private setupReveal() {
+    const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal"))
+    // Opt in to the hidden-then-fade treatment only once JS is confirmed
+    // running — content is visible by default until this line executes,
+    // so a script error or slow load never leaves a section permanently blank.
+    els.forEach((el) => el.classList.add("pre-reveal"))
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            io.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -6% 0px" },
+    )
+    els.forEach((el) => io.observe(el))
+    this.cleanupFns.push(() => io.disconnect())
+
+    const safety = setTimeout(() => els.forEach((el) => el.classList.add("is-visible")), 1200)
+    this.cleanupFns.push(() => clearTimeout(safety))
+  }
+
+  private setupMagnetic() {
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-magnetic]"))
+    els.forEach((el) => {
+      const qx = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3" })
+      const qy = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3" })
+      const move = (e: MouseEvent) => {
+        const r = el.getBoundingClientRect()
+        qx((e.clientX - (r.left + r.width / 2)) * 0.3)
+        qy((e.clientY - (r.top + r.height / 2)) * 0.4)
+      }
+      const leave = () => gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1,0.5)" })
+      el.addEventListener("mousemove", move)
+      el.addEventListener("mouseleave", leave)
+      this.cleanupFns.push(() => {
+        el.removeEventListener("mousemove", move)
+        el.removeEventListener("mouseleave", leave)
+      })
+    })
+  }
+
+  private setupCustomCursor() {
+    const ring = document.createElement("div")
+    ring.className = "cursor-ring"
+    const dot = document.createElement("div")
+    dot.className = "cursor-dot"
+    document.body.appendChild(ring)
+    document.body.appendChild(dot)
+    document.body.classList.add("has-custom-cursor")
+
+    const rx = gsap.quickTo(ring, "x", { duration: 0.45, ease: "power3" })
+    const ry = gsap.quickTo(ring, "y", { duration: 0.45, ease: "power3" })
+    const dx = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power2" })
+    const dy = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power2" })
+
+    const move = (e: MouseEvent) => {
+      rx(e.clientX)
+      ry(e.clientY)
+      dx(e.clientX)
+      dy(e.clientY)
+    }
+    window.addEventListener("mousemove", move)
+
+    const hoverEls = Array.from(document.querySelectorAll<HTMLElement>("a, button"))
+    const onEnter = () => gsap.to(ring, { scale: 1.9, borderColor: "#e0a96d", duration: 0.25 })
+    const onLeave = () => gsap.to(ring, { scale: 1, borderColor: "rgba(242,235,227,.7)", duration: 0.25 })
+    hoverEls.forEach((el) => {
+      el.addEventListener("mouseenter", onEnter)
+      el.addEventListener("mouseleave", onLeave)
+    })
+
+    this.cleanupFns.push(() => {
+      window.removeEventListener("mousemove", move)
+      hoverEls.forEach((el) => {
+        el.removeEventListener("mouseenter", onEnter)
+        el.removeEventListener("mouseleave", onLeave)
+      })
+      ring.remove()
+      dot.remove()
+      document.body.classList.remove("has-custom-cursor")
+    })
+  }
+
+  private setupParallax() {
+    const orbs = Array.from(document.querySelectorAll<HTMLElement>("[data-bloom]"))
+    if (!orbs.length) return
+    const qys = orbs.map((el) => gsap.quickTo(el, "y", { duration: 0.6, ease: "power2" }))
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        const y = window.scrollY
+        orbs.forEach((_el, i) => qys[i](y * (0.06 + i * 0.03)))
+        ticking = false
+      })
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    this.cleanupFns.push(() => window.removeEventListener("scroll", onScroll))
   }
 }

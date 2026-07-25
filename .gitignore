@@ -1,0 +1,8 @@
+# Claude Code skills/agents
+.agents/
+.claude/
+skills-lock.json
+
+# Design tooling metadata
+.hallmark/
+.impeccable/
