@@ -30,6 +30,14 @@
 
   --color-focus: #e0a96d;
 
+  /* Product photography was shot for a white studio backdrop, so glass
+     highlights read as blown-out/glary once composited on our near-black
+     paper (the same absolute brightness reads hotter next to a dark
+     surround). Contrast (not brightness) is what tames a blown highlight —
+     it compresses both ends toward mid-gray — so pull contrast down
+     meaningfully, nudge exposure down a touch, and desaturate slightly. */
+  --filter-photo-grade: brightness(0.9) contrast(0.82) saturate(0.85);
+
   /* Type */
   --font-display: "Instrument Serif", ui-serif, Georgia, serif;
   --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
@@ -497,7 +505,7 @@ button {
   position: relative;
   max-height: 26rem;
   width: auto;
-  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
+  filter: var(--filter-photo-grade) drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
 }
 
 .hero__tag {
@@ -665,6 +673,7 @@ button {
   max-height: 100%;
   width: auto;
   object-fit: contain;
+  filter: var(--filter-photo-grade);
 }
 
 .carousel__card-tag {
@@ -885,6 +894,7 @@ button {
   height: 100%;
   object-fit: contain;
   padding: var(--space-md);
+  filter: var(--filter-photo-grade);
   transition: transform var(--dur-long) var(--ease-out);
 }
 
@@ -1178,5 +1188,17 @@ button {
 /* ---------------------------------------------------------------------- */
 @media (max-width: 40rem) {
   .hero { min-height: auto; padding-top: 7rem; }
-  .hero__tag { display: none; }
+  /* The tag card is absolutely positioned (bottom:6%; left:-4%) to float
+     beside the bottle on wide layouts — on a narrow viewport that offset
+     pushes it past the edge, so it was hidden outright. Instead, drop it
+     into normal flow, stacked below the bottle, full width. */
+  .hero__visual {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .hero__tag {
+    position: static;
+    width: 100%;
+    max-width: 16rem;
+  }
 }
