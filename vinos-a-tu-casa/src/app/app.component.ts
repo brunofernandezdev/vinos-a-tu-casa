@@ -49,6 +49,7 @@ interface ContactInfo {
           <li><a class="nav-pill__link" href="#top" [class.is-active]="activeNav === 'top'">Inicio</a></li>
           <li><a class="nav-pill__link" href="#vinos" [class.is-active]="activeNav === 'vinos'">Vinos</a></li>
           <li><a class="nav-pill__link" href="#espumantes" [class.is-active]="activeNav === 'espumantes'">Espumantes</a></li>
+          <li><a class="nav-pill__link" href="#aceites" [class.is-active]="activeNav === 'aceites'">Aceites</a></li>
           <li><a class="nav-pill__link" href="#contacto" [class.is-active]="activeNav === 'contacto'">Contacto</a></li>
         </ul>
 
@@ -68,6 +69,7 @@ interface ContactInfo {
         <a role="menuitem" class="nav-sheet__link" href="#top" [class.is-active]="activeNav === 'top'" (click)="closeMobileMenu()">Inicio</a>
         <a role="menuitem" class="nav-sheet__link" href="#vinos" [class.is-active]="activeNav === 'vinos'" (click)="closeMobileMenu()">Vinos</a>
         <a role="menuitem" class="nav-sheet__link" href="#espumantes" [class.is-active]="activeNav === 'espumantes'" (click)="closeMobileMenu()">Espumantes</a>
+        <a role="menuitem" class="nav-sheet__link" href="#aceites" [class.is-active]="activeNav === 'aceites'" (click)="closeMobileMenu()">Aceites</a>
         <a role="menuitem" class="nav-sheet__link" href="#contacto" [class.is-active]="activeNav === 'contacto'" (click)="closeMobileMenu()">Contacto</a>
       </div>
 
@@ -228,6 +230,38 @@ interface ContactInfo {
                 <div class="product__price-row">
                   <div class="product__price tabular-nums">{{ espumante.price }}</div>
                   <div class="product__price-type">{{ espumante.priceType }}</div>
+                </div>
+                <a class="btn btn--outline btn--sm btn--block product__action" href="#contacto">Consultar →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Aceites -->
+      <section id="aceites" class="section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow section-head__eyebrow reveal">Para la mesa</p>
+            <h2 class="section-head__title reveal">Aceites de oliva</h2>
+            <p class="section-head__lede reveal">Aceite de oliva premium para acompañar cada comida.</p>
+          </div>
+
+          <div class="product-grid">
+            <article class="product reveal" *ngFor="let aceite of aceites; trackBy: trackByTitle">
+              <div class="product__media">
+                <img [src]="aceite.image" [alt]="aceite.title" loading="lazy" width="400" height="500" />
+              </div>
+              <div class="product__body">
+                <div class="product__tags">
+                  <span class="product__varietal">{{ aceite.varietal }}</span>
+                  <span class="product__region">{{ aceite.region }}</span>
+                </div>
+                <h3 class="product__name">{{ aceite.title }}</h3>
+                <p class="product__desc">{{ aceite.description }}</p>
+                <div class="product__price-row">
+                  <div class="product__price tabular-nums">{{ aceite.price }}</div>
+                  <div class="product__price-type">{{ aceite.priceType }}</div>
                 </div>
                 <a class="btn btn--outline btn--sm btn--block product__action" href="#contacto">Consultar →</a>
               </div>
@@ -402,7 +436,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       price: "$120.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Combina en distintos varietales: Chardonnay, Malbec, Cabernet Sauvignon, Cabernet Franc",
-      image: "assets/cutout/dominio-rutini-2.png",
+      image: "assets/cutout/dominio-rutini-3.png",
     },
     // {
     //   title: "Cepa Tradicional Bodega La Rural",
@@ -470,13 +504,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     },
     {
       title: "Callejón de las Brujas",
-      varietal: "Malbec, Cabernet Franc, Cabernet Sauvignon",
+      varietal: "Blend (Malbec, Cabernet Franc, Cabernet Sauvignon)",
       region: "Mendoza, Argentina",
       description: "Aromas de frutos rojos y negros, violetas y chocolate, estructura elegante con taninos suaves y maduros",
-      price: "$69.000",
-      priceType: "Caja x 6 unidades",
-      alternativePrice: "Combinables - 3 variedades: Malbec, Cabernet Franc y Cabernet Sauvignon",
-      image: "assets/cutout/callejon-de-las-brujas.png",
+      price: "2 x $24.000",
+      priceType: "Por combinación de 2 unidades",
+      image: "assets/cutout/callejon-de-las-brujas-2.png",
     },
     // {
     //   title: "Temporada Malbec 2024",
@@ -541,7 +574,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       description: "Aromas intensos de ciruelas maduras, cerezas negras y notas de vainilla, taninos sedosos con final prolongado y elegante",
       price: "$66.000",
       priceType: "Caja x 6 unidades",
-      image: "assets/cutout/encuentro-rutini-2.png",
+      image: "assets/cutout/encuentro-rutini-3.png",
     },
     {
       title: "El Joven Equilibrista Malbec",
@@ -615,6 +648,250 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       priceType: "Caja x 6 unidades",
       image: "assets/cutout/casa-de-herrero-2.png",
     },
+    {
+      title: "Mythic Block Malbec",
+      varietal: "Malbec",
+      region: "Luján de Cuyo, Mendoza",
+      description: "Rojo profundo con aromas a frutos rojos y negros, cerezas y un toque de pimienta, con notas de café de barrica bien integradas y taninos redondos",
+      price: "2 x $40.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Mythic Block Syrah y Mythic Block Cabernet Sauvignon",
+      image: "assets/cutout/mythic-block-malbec.png",
+    },
+    {
+      title: "Mythic Block Syrah",
+      varietal: "Syrah",
+      region: "Luján de Cuyo, Mendoza",
+      description: "Intenso y especiado, con aromas a frutos negros, pimienta y violetas, cuerpo envolvente y taninos aterciopelados con crianza en roble francés",
+      price: "2 x $40.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Mythic Block Malbec y Mythic Block Cabernet Sauvignon",
+      image: "assets/cutout/mythic-block-syrah.png",
+    },
+    {
+      title: "Mythic Block Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Luján de Cuyo, Mendoza",
+      description: "Garnet profundo y complejo, con notas de pimienta negra, frutos negros y un toque de eucalipto, tabaco y cacao de su paso por barrica",
+      price: "2 x $40.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Mythic Block Malbec y Mythic Block Syrah",
+      image: "assets/cutout/mythic-block-cabernet-sauvignon.png",
+    },
+    {
+      title: "Ricardo Santos Malbec",
+      varietal: "Malbec",
+      region: "Luján de Cuyo, Mendoza",
+      description: "Elegante y mineral, con aromas de fruta roja fresca y violetas, taninos finos y una acidez viva típica de Luján de Cuyo",
+      price: "2 x $22.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Ricardo Santos Cabernet Sauvignon",
+      image: "assets/cutout/ricardo-santos-malbec-varietal.png",
+    },
+    {
+      title: "Ricardo Santos Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Luján de Cuyo, Mendoza",
+      description: "Rubí concentrado con notas de frutos negros, cassis fresco y sutiles toques especiados, cuerpo envolvente y taninos firmes y elegantes",
+      price: "2 x $22.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Ricardo Santos Malbec",
+      image: "assets/cutout/ricardo-santos-cabernet-sauvignon.png",
+    },
+    {
+      title: "Finca Ambrosía Casa Sauvignon Blanc",
+      varietal: "Sauvignon Blanc",
+      region: "Valle de Uco, Mendoza",
+      description: "Fresco y cítrico, con aromas de pomelo y notas herbáceas, acidez vibrante propia de la altura del Valle de Uco",
+      price: "2 x $24.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Finca Ambrosía Casa Malbec",
+      image: "assets/cutout/finca-ambrosia-casa-sauvignon-blanc.png",
+    },
+    {
+      title: "Finca Ambrosía Casa Malbec",
+      varietal: "Malbec",
+      region: "Valle de Uco, Mendoza",
+      description: "Frutado y accesible, con notas de ciruela y frutos rojos, carácter mineral típico de los suelos del Valle de Uco",
+      price: "2 x $24.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Finca Ambrosía Casa Sauvignon Blanc",
+      image: "assets/cutout/finca-ambrosia-casa-malbec.png",
+    },
+    {
+      title: "Finca Ambrosía Viña Única Cabernet Franc",
+      varietal: "Cabernet Franc",
+      region: "Gualtallary, Valle de Uco",
+      description: "Fresco y especiado, con notas herbáceas, frambuesa y grafito, mineralidad marcada de Gualtallary y taninos finos",
+      price: "2 x $38.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Viña Única Malbec y Viña Única Cabernet Sauvignon",
+      image: "assets/cutout/finca-ambrosia-vina-unica-cabernet-franc.png",
+    },
+    {
+      title: "Finca Ambrosía Viña Única Malbec",
+      varietal: "Malbec",
+      region: "Gualtallary, Valle de Uco",
+      description: "Complejo y mineral, con un toque de Cabernet Franc que aporta especias, criado 18 meses en roble francés nuevo",
+      price: "2 x $38.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Viña Única Cabernet Franc y Viña Única Cabernet Sauvignon",
+      image: "assets/cutout/finca-ambrosia-vina-unica-malbec.png",
+    },
+    {
+      title: "Finca Ambrosía Viña Única Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Gualtallary, Valle de Uco",
+      description: "Estructurado y profundo, con notas de frutos negros y especias, mineralidad de altura y taninos firmes de guarda",
+      price: "2 x $38.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Viña Única Cabernet Franc y Viña Única Malbec",
+      image: "assets/cutout/finca-ambrosia-vina-unica-cabernet-sauvignon.png",
+    },
+    {
+      title: "Gran Sentenciado Malbec",
+      varietal: "Malbec",
+      region: "Valle de Uco, Mendoza",
+      description: "Rojo profundo de matices violáceos, con aromas a violetas, cerezas y frutos negros, notas de tabaco, chocolate y dulce de leche en boca",
+      price: "2 x $52.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Gran Sentenciado Cabernet Franc",
+      image: "assets/cutout/gran-sentenciado-malbec.png",
+    },
+    {
+      title: "Gran Sentenciado Cabernet Franc",
+      varietal: "Cabernet Franc",
+      region: "Valle de Uco, Mendoza",
+      description: "Fresco y mineral, con notas herbáceas, frambuesa y pimienta roja, taninos finos y buena acidez del Valle de Uco",
+      price: "2 x $52.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Gran Sentenciado Malbec",
+      image: "assets/cutout/gran-sentenciado-cabernet-franc.png",
+    },
+    {
+      title: "Mythic Mountain Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Luján de Cuyo, Mendoza",
+      description: "Profundo y frutado, con notas de moras, cereza, pimienta y un sutil toque de menta",
+      price: "2 x $18.000",
+      priceType: "Por combinación de 2 unidades",
+      image: "assets/cutout/mythic-mountain-cabernet-sauvignon.png",
+    },
+    {
+      title: "Finca Iral Malbec",
+      varietal: "Malbec",
+      region: "Ugarteche, Luján de Cuyo",
+      description: "Sabor y aroma intensos a frutos rojos, sin paso por barrica, fresco y varietal, de la finca orgánica en Ugarteche",
+      price: "2 x $23.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Finca Iral Cabernet Franc",
+      image: "assets/cutout/finca-iral-malbec.png",
+    },
+    {
+      title: "Finca Iral Cabernet Franc",
+      varietal: "Cabernet Franc",
+      region: "Ugarteche, Luján de Cuyo",
+      description: "De cosecha manual y selección de parcela, fresco y herbáceo, con frutos rojos intensos y carácter varietal puro",
+      price: "2 x $23.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Finca Iral Malbec",
+      image: "assets/cutout/finca-iral-cabernet-franc.png",
+    },
+    {
+      title: "Las Estelas Malbec - Cabernet Franc",
+      varietal: "Malbec - Cabernet Franc",
+      region: "Valle de Uco, Mendoza",
+      description: "Floral con hierbas secas, frutos rojos y negros, acidez fresca y un final especiado y elegante, de Finca Mangato",
+      price: "2 x $32.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Las Estelas Alto de las Piedras",
+      image: "assets/cutout/las-estelas-malbec-cabernet-franc.png",
+    },
+    {
+      title: "Las Estelas Alto de las Piedras",
+      varietal: "Malbec - Cabernet Franc - Cabernet Sauvignon",
+      region: "Tupungato, Valle de Uco",
+      description: "Denso y especiado, con notas de pimienta, elegante y fresco gracias al corte con Cabernet Franc y Cabernet Sauvignon",
+      price: "2 x $32.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con Las Estelas Malbec - Cabernet Franc",
+      image: "assets/cutout/las-estelas-alto-de-las-piedras-malbec.png",
+    },
+    {
+      title: "Cepa Tradicional Cabernet Sauvignon - Malbec - Pinot Noir",
+      varietal: "Cabernet Sauvignon - Malbec - Pinot Noir",
+      region: "Maipú y Tupungato, Mendoza",
+      description: "Rubí profundo con matiz ciruela, aromas de frutas rojas frescas y cocidas, acentos tostados y un toque de especias",
+      price: "2 x $18.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con los otros 2 estilos de Cepa Tradicional (caja x6 = $54.000)",
+      image: "assets/cutout/cepa-tradicional-cabsauv-malbec-pinot.png",
+    },
+    {
+      title: "Cepa Tradicional Malbec - Syrah - Cabernet",
+      varietal: "Malbec - Syrah - Cabernet Sauvignon",
+      region: "Maipú y Tupungato, Mendoza",
+      description: "Vino de corte de estilo clásico, con 18 meses en tonel de roble francés, fluido y de taninos maduros",
+      price: "2 x $18.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con los otros 2 estilos de Cepa Tradicional (caja x6 = $54.000)",
+      image: "assets/cutout/cepa-tradicional-malbec-syrah-cabernet.png",
+    },
+    {
+      title: "Cepa Tradicional Blend Bonarda",
+      varietal: "Bonarda",
+      region: "Pedernal, San Juan",
+      description: "100% Bonarda de Pedernal, fresco y frutado, con la crianza prolongada y el estilo sobrio característico de Cepa Tradicional",
+      price: "2 x $18.000",
+      priceType: "Por combinación de 2 unidades",
+      alternativePrice: "Combinable con los otros 2 estilos de Cepa Tradicional (caja x6 = $54.000)",
+      image: "assets/cutout/cepa-tradicional-blend-bonarda.png",
+    },
+    {
+      title: "Sin Reglas Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Tupungato, Valle de Uco",
+      description: "Intenso y voluptuoso, con frutas rojas y negras, notas de vainilla y chocolate, taninos suaves y sedosos de gran persistencia",
+      price: "2 x $30.000",
+      priceType: "Por combinación de 2 unidades",
+      image: "assets/cutout/sin-reglas-cabernet-sauvignon.png",
+    },
+    {
+      title: "Barandica Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Vista Flores, Valle de Uco",
+      description: "Rubí intenso, con fruta roja madura, notas de pimienta verde, nuez moscada y regaliz, entrada dulce y taninos firmes",
+      price: "2 x $25.000",
+      priceType: "Por combinación de 2 unidades",
+      image: "assets/cutout/barandica-cabernet-sauvignon.png",
+    },
+    {
+      title: "Andeluna Raíces Crianza Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Valle de Uco, Mendoza",
+      description: "Tonos rojo violáceos, con pimientos rojos maduros, pimienta negra y fruta roja, estructura equilibrada y taninos redondos de altura",
+      price: "2 x $24.000",
+      priceType: "Por combinación de 2 unidades",
+      image: "assets/cutout/andeluna-raices-crianza-cabernet-sauvignon.png",
+    },
+    {
+      title: "Andeluna Raíces Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Valle de Uco, Mendoza",
+      description: "Edición limitada de altura, con pimientos rojos maduros y pimienta negra, estructura fresca y taninos redondos",
+      price: "2 x $17.000",
+      priceType: "Por combinación de 2 unidades",
+      image: "assets/cutout/andeluna-raices-cabernet-sauvignon.png",
+    },
+    {
+      title: "Cavas de Crianza Cabernet Sauvignon",
+      varietal: "Cabernet Sauvignon",
+      region: "Valle de Uco, Mendoza",
+      description: "Violeta y frutos negros concentrados, notas mentoladas y de pimienta, ahumado y vainilla de su crianza en roble francés",
+      price: "2 x $24.000",
+      priceType: "Por combinación de 2 unidades",
+      image: "assets/cutout/cavas-de-crianza-cabernet-sauvignon.png",
+    },
   ]
 
   espumantes: any[] = [
@@ -655,6 +932,18 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       price: "$11.000",
       priceType: "Por unidad",
       image: "assets/cutout/atemporal-extra-brut.png",
+    },
+  ]
+
+  aceites: any[] = [
+    {
+      title: "Laur Aceite de Oliva Virgen Extra",
+      varietal: "Aceite de oliva",
+      region: "Maipú, Mendoza",
+      description: "Extraído en frío, de olivares de Maipú. Elaborado por Laur, la olivícola argentina elegida mejor del mundo en el EVOO World Ranking",
+      price: "$16.000",
+      priceType: "Botella de 500ml",
+      image: "assets/cutout/laur-aceite-oliva-virgen-extra.png",
     },
   ]
 
@@ -790,7 +1079,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   private setupSectionObserver() {
-    const ids = ["top", "vinos", "espumantes", "contacto"]
+    const ids = ["top", "vinos", "espumantes", "aceites", "contacto"]
     const sections = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el)
     const io = new IntersectionObserver(
       (entries) => {
