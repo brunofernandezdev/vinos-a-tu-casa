@@ -407,7 +407,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       price: "55.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "$18.000 (2 unidades)",
-      image: "assets/cutout/bedz-malbec-reserva-2015-2.png",
+      image: "assets/cutout/bedz-malbec-reserva-2015-3.png",
     },
     {
       title: "De Moño Rojo Cabernet Franc",
