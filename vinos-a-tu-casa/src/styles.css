@@ -486,8 +486,10 @@ button {
 .hero__visual {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--space-md);
   min-height: 22rem;
 }
 
@@ -508,15 +510,13 @@ button {
 }
 
 .hero__tag {
-  position: absolute;
-  bottom: 6%;
-  left: -4%;
   background: rgba(242, 235, 227, 0.07);
   backdrop-filter: blur(14px);
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: 16px;
   padding: var(--space-sm) var(--space-md);
-  width: 14.5rem;
+  width: 100%;
+  max-width: 16rem;
 }
 
 .hero__tag-label {
@@ -1164,17 +1164,4 @@ button {
 /* ---------------------------------------------------------------------- */
 @media (max-width: 40rem) {
   .hero { min-height: auto; padding-top: 7rem; }
-  /* The tag card is absolutely positioned (bottom:6%; left:-4%) to float
-     beside the bottle on wide layouts — on a narrow viewport that offset
-     pushes it past the edge, so it was hidden outright. Instead, drop it
-     into normal flow, stacked below the bottle, full width. */
-  .hero__visual {
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-  .hero__tag {
-    position: static;
-    width: 100%;
-    max-width: 16rem;
-  }
 }
