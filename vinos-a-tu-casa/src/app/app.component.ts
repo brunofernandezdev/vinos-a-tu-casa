@@ -42,7 +42,7 @@ interface ContactInfo {
     <div>
       <nav class="nav-pill" aria-label="Navegación principal">
         <a class="nav-pill__wordmark" href="#top" (click)="closeMobileMenu()">
-          Vinos <em style="color: var(--color-gold)">a tu casa</em>
+          Vinos <span class="accent-italic">a tu casa</span>
         </a>
 
         <ul class="nav-pill__links">
@@ -100,7 +100,7 @@ interface ContactInfo {
             <div class="hero__tag">
               <div class="hero__tag-label">Etiqueta destacada</div>
               <div class="hero__tag-name">{{ w.title }}</div>
-              <div class="hero__tag-meta">{{ w.region }} · {{ w.price }}</div>
+              <div class="hero__tag-meta">{{ w.region }} · {{ w.price }} ({{ w.priceType }})</div>
             </div>
           </div>
         </div>
@@ -149,17 +149,14 @@ interface ContactInfo {
       <!-- Manifiesto -->
       <section class="section">
         <div class="container manifesto">
-          <p class="eyebrow manifesto__eyebrow reveal">Cómo elegimos</p>
-          <div>
-            <h2 class="manifesto__heading reveal">
-              No es un catálogo. Es una selección que armamos a mano,
-              <span class="accent-italic">botella por botella</span>.
-            </h2>
-            <p class="manifesto__lede reveal">
-              Cada vino de esta lista lo probamos y elegimos nosotros — no un algoritmo.
-              Si dudás entre dos etiquetas, escribinos: te contamos cuál conviene según la ocasión.
-            </p>
-          </div>
+          <h2 class="manifesto__heading reveal">
+            No es un catálogo. Es una selección que armamos a mano,
+            <span class="accent-italic">botella por botella</span>.
+          </h2>
+          <p class="manifesto__lede reveal">
+            Cada vino de esta lista lo probamos y elegimos nosotros — no un algoritmo.
+            Si dudás entre dos etiquetas, escribinos: te contamos cuál conviene según la ocasión.
+          </p>
         </div>
       </section>
 
@@ -175,7 +172,6 @@ interface ContactInfo {
       <section id="vinos" class="section">
         <div class="container">
           <div class="section-head">
-            <p class="eyebrow section-head__eyebrow reveal">Colección</p>
             <h2 class="section-head__title reveal">Nuestra <span class="accent-italic">colección</span>.</h2>
             <p class="section-head__lede reveal">Bodegas de todo el país, etiqueta por etiqueta.</p>
           </div>
@@ -210,7 +206,6 @@ interface ContactInfo {
       <section id="espumantes" class="section">
         <div class="container">
           <div class="section-head">
-            <p class="eyebrow section-head__eyebrow reveal">Para brindar</p>
             <h2 class="section-head__title reveal">Espumantes</h2>
             <p class="section-head__lede reveal">Etiquetas para celebrar cada momento.</p>
           </div>
@@ -242,7 +237,6 @@ interface ContactInfo {
       <section id="aceites" class="section">
         <div class="container">
           <div class="section-head">
-            <p class="eyebrow section-head__eyebrow reveal">Para la mesa</p>
             <h2 class="section-head__title reveal">Aceites de oliva</h2>
             <p class="section-head__lede reveal">Aceite de oliva premium para acompañar cada comida.</p>
           </div>
@@ -274,7 +268,6 @@ interface ContactInfo {
       <section class="section">
         <div class="container">
           <div class="section-head">
-            <p class="eyebrow section-head__eyebrow reveal">Cómo pedís</p>
             <h2 class="section-head__title reveal">Simple, directo, por WhatsApp.</h2>
           </div>
           <div class="steps">
@@ -301,10 +294,9 @@ interface ContactInfo {
       <section id="contacto" class="section">
         <div class="container">
           <div class="cta-band reveal">
-            <p class="eyebrow cta-band__eyebrow">Tu próxima botella te espera</p>
             <h2 class="cta-band__title">Empecemos.</h2>
           </div>
-          <p class="contact-lede reveal">Te asesoramos personalmente por WhatsApp para armar tu pedido.</p>
+          <p class="contact-lede reveal">Tu próxima botella te espera — te asesoramos personalmente por WhatsApp para armar tu pedido.</p>
 
           <div class="contact-grid">
             <div class="contact-card reveal" *ngFor="let contact of contactInfo; trackBy: trackByType">
@@ -328,7 +320,7 @@ interface ContactInfo {
 
       <footer class="foot-stmt">
         <div class="container foot-stmt__row">
-          <span class="foot-stmt__wordmark">Vinos <em style="color: var(--color-gold)">a tu casa</em></span>
+          <span class="foot-stmt__wordmark">Vinos <span class="accent-italic">a tu casa</span></span>
           <span class="foot-stmt__legal">© {{ currentYear }} · Venta de bebidas alcohólicas prohibida a menores de 18 años</span>
         </div>
       </footer>
@@ -350,8 +342,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   private cleanupFns: Array<() => void> = []
   private featuredTitles = [
-    "Viamonte Icono Malbec 2020",
     "Dominio Rutini Malbec",
+    "Viamonte Icono Malbec 2020",
     "Mil Demonios Malbec",
     "Ernesto Catena Tikal Natural Bivarietal",
     "Filippo Figari Malbec Reserva",
@@ -1000,19 +992,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   contactInfo: any[] = [
     {
-      type: "WhatsApp Valentina",
-      icon: MessageCircle,
-      value: "+54 9 351 392-0512",
-      link: "https://wa.me/5493513920512?text=Hola%20Valentina!%20Estoy%20interesado%20en%20consultar%20sobre%20los%20vinos.%20¿Podrías%20ayudarme?",
-      description: "Consultá disponibilidad y hacé tu pedido",
-      isWhatsApp: true,
-    },
-    {
-      type: "WhatsApp Julio",
+      type: "WhatsApp",
       icon: MessageCircle,
       value: "+54 9 351 380-2776",
-      link: "https://wa.me/5493513802776?text=Hola%20Julio!%20Estoy%20interesado%20en%20consultar%20sobre%20los%20vinos.%20¿Podrías%20ayudarme?",
-      description: "Asesoramiento personalizado",
+      link: "https://wa.me/5493513802776?text=Hola!%20Estoy%20interesado%20en%20consultar%20sobre%20los%20vinos.%20¿Podrías%20ayudarme?",
+      description: "Consultá disponibilidad y hacé tu pedido",
       isWhatsApp: true,
     },
   ]

@@ -178,7 +178,6 @@ button {
 }
 
 .accent-italic {
-  font-style: italic;
   color: var(--color-gold);
 }
 
@@ -517,7 +516,7 @@ button {
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: 16px;
   padding: var(--space-sm) var(--space-md);
-  width: 13rem;
+  width: 14.5rem;
 }
 
 .hero__tag-label {
@@ -709,23 +708,8 @@ button {
 /* ---------------------------------------------------------------------- */
 /* Manifesto                                                               */
 /* ---------------------------------------------------------------------- */
-.manifesto {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-}
-
-@media (min-width: 56rem) {
-  .manifesto {
-    grid-template-columns: 0.32fr 0.68fr;
-  }
-}
-
-.manifesto__eyebrow {
-  padding-top: 0.2em;
-}
-
 .manifesto__heading {
+  max-width: 34rem;
   font-size: clamp(1.75rem, 4vw, 3.5rem);
   line-height: 1.15;
 }
@@ -1015,14 +999,10 @@ button {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-lg);
-  max-width: 48rem;
+  max-width: 26rem;
   margin-inline: auto;
-}
-
-@media (max-width: 40rem) {
-  .contact-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 .contact-card {
@@ -1082,10 +1062,6 @@ button {
 /* ---------------------------------------------------------------------- */
 .cta-band {
   text-align: center;
-}
-
-.cta-band__eyebrow {
-  margin-bottom: var(--space-lg);
 }
 
 .cta-band__title {
