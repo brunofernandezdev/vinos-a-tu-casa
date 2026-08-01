@@ -491,7 +491,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       price: "$42.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Malbec: $42.000",
-      image: "assets/cutout/filippo-figari-2020-2.png",
+      image: "assets/cutout/filippo-figari-2020-2.webp",
     },
     {
       title: "Mil Demonios Malbec",
