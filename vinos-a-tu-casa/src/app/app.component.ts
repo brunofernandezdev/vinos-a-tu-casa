@@ -41,8 +41,8 @@ interface ContactInfo {
   template: `
     <div>
       <nav class="nav-pill" aria-label="Navegación principal">
-        <a class="nav-pill__wordmark" href="#top" (click)="closeMobileMenu()">
-          Vinos <span class="accent-italic">a tu casa</span>
+        <a class="nav-pill__wordmark" href="#top" (click)="closeMobileMenu()" aria-label="Vinos a tu casa — inicio">
+          <img class="nav-pill__logo" src="assets/logo-vinos-a-tu-casa.jpeg" alt="Vinos a tu casa" width="56" height="56" />
         </a>
 
         <ul class="nav-pill__links">
@@ -320,7 +320,10 @@ interface ContactInfo {
 
       <footer class="foot-stmt">
         <div class="container foot-stmt__row">
-          <span class="foot-stmt__wordmark">Vinos <span class="accent-italic">a tu casa</span></span>
+          <span class="foot-stmt__wordmark">
+            <img class="foot-stmt__logo" src="assets/logo-vinos-a-tu-casa.jpeg" alt="" width="32" height="32" />
+            Vinos <span class="accent-italic">a tu casa</span>
+          </span>
           <span class="foot-stmt__legal">© {{ currentYear }} · Venta de bebidas alcohólicas prohibida a menores de 18 años</span>
         </div>
       </footer>
