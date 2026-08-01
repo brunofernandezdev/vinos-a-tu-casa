@@ -284,7 +284,7 @@ interface ContactInfo {
             <div class="step reveal">
               <div class="step__num">03</div>
               <h3 class="step__title">Recibís</h3>
-              <p class="step__body">Coordinamos el envío directo a tu casa.</p>
+              <p class="step__body">Coordinamos el envío directo a tu casa. Si es dentro de Córdoba Capital o alrededores, el envío es sin cargo.</p>
             </div>
           </div>
         </div>
@@ -343,7 +343,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   private cleanupFns: Array<() => void> = []
   private featuredTitles = [
     "Dominio Rutini Malbec",
-    "Viamonte Icono Malbec 2020",
     "Mil Demonios Malbec",
     "Ernesto Catena Tikal Natural Bivarietal",
     "Filippo Figari Malbec Reserva",
@@ -381,35 +380,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       image: "assets/cutout/trumpeter-merlot.png",
     },
     {
-      title: "Luigi Bosca de Sangre",
-      varietal: "Blend",
-      region: "Mendoza, Argentina",
-      description: "Frutado, cuerpo medio, vibrante",
-      price: "$96.000",
-      priceType: "Caja x 6 unidades",
-      image: "assets/cutout/luigi-bosca-sangre.png",
-    },
-    {
-      title: "Bedz Malbec Estate 2022",
-      varietal: "Malbec",
-      region: "Mendoza, Argentina",
-      description: "Aromas de frutos rojos, toques de violetas, con un final suave y elegante",
-      price: "$45.000",
-      priceType: "Caja x 6 unidades",
-      alternativePrice: "$12.000 (2 unidades)",
-      image: "assets/cutout/bedz-estate-malbec.png",
-    },
-    {
-      title: "Bedz Malbec Reserva 2021",
-      varietal: "Malbec",
-      region: "Mendoza, Argentina",
-      description: "Complejo, con notas de frutas negras maduras, un toque de vainilla y un final especiado",
-      price: "55.000",
-      priceType: "Caja x 6 unidades",
-      alternativePrice: "$18.000 (2 unidades)",
-      image: "assets/cutout/bedz-malbec-reserva-2015-3.png",
-    },
-    {
       title: "De Moño Rojo Cabernet Franc",
       varietal: "Cabernet Franc",
       region: "Mendoza, Argentina",
@@ -440,15 +410,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     //   alternativePrice: "Combina 2, 2 y 2 unidades",
     //   image: "assets/cepa-tradicional.png",
     // },
-    {
-      title: "Los Escasos Cabernet Sauvignon",
-      varietal: "Cabernet Sauvignon",
-      region: "Mendoza, Argentina",
-      description: "Intenso, con notas de cassis, pimientos y especias, taninos firmes y elegantes",
-      price: "$9.000",
-      priceType: "Por unidad",
-      image: "assets/cutout/los-escasos-cabernet.png",
-    },
     {
       title: "Malabarista Cabernet Franc",
       varietal: "Cabernet Franc",
@@ -492,7 +453,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       description: "Orgánico, con notas frutales puras, sin sulfitos agregados, final limpio y natural",
       price: "$9.000",
       priceType: "Por unidad",
-      image: "assets/cutout/virgen-malbec-organico.png",
+      image: "assets/cutout/virgen-malbec-organico.webp",
     },
     {
       title: "Callejón de las Brujas",
@@ -564,8 +525,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       varietal: "Malbec",
       region: "Valle de Uco, Mendoza",
       description: "Aromas intensos de ciruelas maduras, cerezas negras y notas de vainilla, taninos sedosos con final prolongado y elegante",
-      price: "$66.000",
-      priceType: "Caja x 6 unidades",
+      price: "2 x $13.000",
+      priceType: "Por combinación de 2 unidades · Caja x 6: $78.000",
       image: "assets/cutout/encuentro-rutini-3.png",
     },
     {
@@ -596,15 +557,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       image: "assets/cutout/Ricardo-santos-malbec.png",
     },
     {
-      title: "Viamonte Icono Malbec 2020",
-      varietal: "Malbec",
-      region: "Luján de Cuyo, Mendoza",
-      description: "Color rojo violáceo intenso y destellos púrpura. Aromas complejos donde se destaca fruta roja bien madura como mermelada de ciruelas. Su crianza en roble francés por 24 meses y sus posteriores 12 meses en estiba le aportan notas de vainilla. Vino aterciopelado con un final extenso",
-      price: "$119.000",
-      priceType: "Caja x 6 unidades",
-      image: "assets/cutout/Valmonte-winery-icono.png",
-    },
-    {
       title: "Finca Martha Merlot 2021",
       varietal: "Merlot",
       region: "San Rafael, Mendoza",
@@ -612,24 +564,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       price: "$59.000",
       priceType: "Caja x 6 unidades",
       image: "assets/cutout/finca-martha-merlot-2021-2.png",
-    },
-    {
-      title: "Salentein Numina Cabernet Sauvignon",
-      varietal: "Cabernet Sauvignon",
-      region: "Valle de Uco, Mendoza",
-      description: "Intenso y complejo, con aromas a cassis, frutos negros y notas especiadas de pimienta y tabaco. Proveniente del Valle de Uco, criado en roble francés, con taninos maduros y un final persistente y elegante",
-      price: "$80.000",
-      priceType: "Caja x 6 unidades",
-      image: "assets/cutout/numina-2.png",
-    },
-    {
-      title: "Atemporal Blend",
-      varietal: "Malbec - Cabernet Sauvignon - Petit Verdot",
-      region: "Valle de Uco, Mendoza",
-      description: "Corte de Malbec, Cabernet Sauvignon y Petit Verdot del viñedo Albaneve. Aromas de frutos rojos, violeta, ciruelas y arándanos con toques de regaliz y especias. Criado en roble francés, elegante y de gran estructura",
-      price: "$72.000",
-      priceType: "Caja x 6 unidades",
-      image: "assets/cutout/atemporal-blend-2.png",
     },
     {
       title: "Casa de Herrero Pinot Noir",
@@ -669,26 +603,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       priceType: "Por combinación de 2 unidades",
       alternativePrice: "Combinable con Mythic Block Malbec y Mythic Block Syrah",
       image: "assets/cutout/mythic-block-cabernet-sauvignon.png",
-    },
-    {
-      title: "Ricardo Santos Malbec",
-      varietal: "Malbec",
-      region: "Luján de Cuyo, Mendoza",
-      description: "Elegante y mineral, con aromas de fruta roja fresca y violetas, taninos finos y una acidez viva típica de Luján de Cuyo",
-      price: "2 x $22.000",
-      priceType: "Por combinación de 2 unidades",
-      alternativePrice: "Combinable con Ricardo Santos Cabernet Sauvignon",
-      image: "assets/cutout/ricardo-santos-malbec-varietal.png",
-    },
-    {
-      title: "Ricardo Santos Cabernet Sauvignon",
-      varietal: "Cabernet Sauvignon",
-      region: "Luján de Cuyo, Mendoza",
-      description: "Rubí concentrado con notas de frutos negros, cassis fresco y sutiles toques especiados, cuerpo envolvente y taninos firmes y elegantes",
-      price: "2 x $22.000",
-      priceType: "Por combinación de 2 unidades",
-      alternativePrice: "Combinable con Ricardo Santos Malbec",
-      image: "assets/cutout/ricardo-santos-cabernet-sauvignon.png",
     },
     {
       title: "Finca Ambrosía Casa Sauvignon Blanc",
@@ -915,15 +829,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       priceType: "Caja x 6 unidades",
       alternativePrice: "Combina 3 de cada uno (Rosé/Malbec y Torrontés)",
       image: "assets/cutout/espumante-san-felipe-torrontes.png",
-    },
-    {
-      title: "Atemporal Extra Brut Chardonnay - Pinot Noir",
-      varietal: "Chardonnay - Pinot Noir",
-      region: "Mendoza, Argentina",
-      description: "Fresco, con notas de manzana verde y un toque delicado de frutos rojos",
-      price: "$11.000",
-      priceType: "Por unidad",
-      image: "assets/cutout/atemporal-extra-brut.png",
     },
   ]
 
