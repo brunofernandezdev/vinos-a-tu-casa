@@ -801,6 +801,15 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       priceType: "Por combinación de 2 unidades",
       image: "assets/cutout/cavas-de-crianza-cabernet-sauvignon.png",
     },
+    {
+      title: "Escorihuela Gascón Gran Reserva Malbec",
+      varietal: "Malbec",
+      region: "Agrelo, Luján de Cuyo, Mendoza",
+      description: "Notas de frutos negros, especias y hierbas de montaña, con 12 meses en barricas de roble francés, buen cuerpo y taninos jugosos de final prolongado",
+      price: "$89.000",
+      priceType: "Caja x 6 unidades",
+      image: "assets/cutout/escorihuela-gascon-gran-reserva-malbec.png",
+    },
   ]
 
   espumantes: any[] = [
