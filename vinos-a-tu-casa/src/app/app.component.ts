@@ -195,6 +195,7 @@ interface ContactInfo {
                   </div>
                   <div class="product__price-type">{{ vino.priceType }}</div>
                 </div>
+                <div *ngIf="vino.alternativePrice" class="product__price-alt">{{ vino.alternativePrice }}</div>
                 <a class="btn btn--outline btn--sm btn--block product__action" href="#contacto">Consultar →</a>
               </div>
             </article>
@@ -226,6 +227,7 @@ interface ContactInfo {
                   <div class="product__price tabular-nums">{{ espumante.price }}</div>
                   <div class="product__price-type">{{ espumante.priceType }}</div>
                 </div>
+                <div *ngIf="espumante.alternativePrice" class="product__price-alt">{{ espumante.alternativePrice }}</div>
                 <a class="btn btn--outline btn--sm btn--block product__action" href="#contacto">Consultar →</a>
               </div>
             </article>
@@ -257,6 +259,7 @@ interface ContactInfo {
                   <div class="product__price tabular-nums">{{ aceite.price }}</div>
                   <div class="product__price-type">{{ aceite.priceType }}</div>
                 </div>
+                <div *ngIf="aceite.alternativePrice" class="product__price-alt">{{ aceite.alternativePrice }}</div>
                 <a class="btn btn--outline btn--sm btn--block product__action" href="#contacto">Consultar →</a>
               </div>
             </article>
@@ -528,7 +531,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       varietal: "Malbec",
       region: "Valle de Uco, Mendoza",
       description: "Aromas intensos de ciruelas maduras, cerezas negras y notas de vainilla, taninos sedosos con final prolongado y elegante",
-      price: "2 x $13.000",
+      price: "2 x $26.000",
       priceType: "Por combinación de 2 unidades · Caja x 6: $78.000",
       image: "assets/cutout/encuentro-rutini-3.png",
     },
@@ -658,24 +661,13 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       image: "assets/cutout/finca-ambrosia-vina-unica-cabernet-sauvignon.png",
     },
     {
-      title: "Gran Sentenciado Malbec",
-      varietal: "Malbec",
+      title: "Gran Sentenciado Malbec-Cabernet Franc",
+      varietal: "Malbec-Cabernet Franc",
       region: "Valle de Uco, Mendoza",
       description: "Rojo profundo de matices violáceos, con aromas a violetas, cerezas y frutos negros, notas de tabaco, chocolate y dulce de leche en boca",
       price: "2 x $52.000",
       priceType: "Por combinación de 2 unidades",
-      alternativePrice: "Combinable con Gran Sentenciado Cabernet Franc",
       image: "assets/cutout/gran-sentenciado-malbec.png",
-    },
-    {
-      title: "Gran Sentenciado Cabernet Franc",
-      varietal: "Cabernet Franc",
-      region: "Valle de Uco, Mendoza",
-      description: "Fresco y mineral, con notas herbáceas, frambuesa y pimienta roja, taninos finos y buena acidez del Valle de Uco",
-      price: "2 x $52.000",
-      priceType: "Por combinación de 2 unidades",
-      alternativePrice: "Combinable con Gran Sentenciado Malbec",
-      image: "assets/cutout/gran-sentenciado-cabernet-franc.png",
     },
     {
       title: "Mythic Mountain Cabernet Sauvignon",
@@ -829,6 +821,25 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       price: "$89.000",
       priceType: "Caja x 6 unidades",
       image: "assets/cutout/escorihuela-gascon-gran-reserva-malbec.png",
+    },
+    {
+      title: "El Enemigo Cabernet Franc",
+      varietal: "Cabernet Franc",
+      region: "Mendoza, Argentina",
+      description: "Aromas herbáceos y florales con violetas, frutos rojos y negros, notas de grafito y pimienta, taninos finos y acidez fresca de gran elegancia",
+      price: "$119.000",
+      priceType: "Caja cerrada x 6 unidades",
+      image: "assets/cutout/el-enemigo-cabernet-franc.png",
+    },
+    {
+      title: "Finca Iral Winemaker Selection",
+      varietal: "Blend",
+      region: "Ugarteche, Luján de Cuyo",
+      description: "Ensamble de parcelas de altura con paso por barrica, frutos negros maduros, especias y notas minerales, cuerpo amplio y taninos pulidos de final persistente",
+      price: "$17.000",
+      priceType: "Botella",
+      alternativePrice: "$99.000 (Caja x 6 unidades)",
+      image: "assets/cutout/finca-iral-winemaker-selection.png",
     },
   ]
 
