@@ -401,7 +401,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       varietal: "Malbec",
       region: "Mendoza, Argentina",
       description: "Elegante, con notas de frutos rojos maduros, especias y un toque de roble",
-      price: "$120.000",
+      price: "$132.000",
       priceType: "Caja x 6 unidades",
       alternativePrice: "Combina en distintos varietales: Chardonnay, Malbec, Cabernet Sauvignon, Cabernet Franc",
       image: "assets/cutout/dominio-rutini-3.png",
