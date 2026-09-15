@@ -845,6 +845,16 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   espumantes: any[] = [
     {
+      title: "Baron B Extra Brut",
+      varietal: "Blend (Chardonnay y Pinot Noir)",
+      region: "Mendoza, Argentina",
+      description: "Espumante de método tradicional, burbujas finas y persistentes, con notas de frutas blancas y un final elegante",
+      price: "$33.000",
+      priceType: "Por unidad",
+      alternativePrice: "$189.000 (Caja x 6 unidades)",
+      image: "assets/cutout/espumante-baron-b.png",
+    },
+    {
       title: "Espumante Animal Extra Brut",
       varietal: "Blend (Chardonnay y Pinot Noir)",
       region: "Mendoza, Argentina",
