@@ -814,6 +814,15 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       image: "assets/cutout/cavas-de-crianza-cabernet-sauvignon.png",
     },
     {
+      title: "DV Catena Cabernet Sauvignon - Cabernet Franc",
+      varietal: "Cabernet Sauvignon - Cabernet Franc",
+      region: "Mendoza, Argentina",
+      description: "Rojo rubí intenso con reflejos violáceos oscuros, aromas complejos de cassis y frambuesas, especias dulces, cedro y notas minerales de grafito, taninos suaves y bien definidos con final largo y persistente",
+      price: "$110.000",
+      priceType: "Caja x 6 unidades",
+      image: "assets/cutout/dv-catena-cabernet-sauvignon-cabernet-franc.png",
+    },
+    {
       title: "Escorihuela Gascón Gran Reserva Malbec",
       varietal: "Malbec",
       region: "Agrelo, Luján de Cuyo, Mendoza",
